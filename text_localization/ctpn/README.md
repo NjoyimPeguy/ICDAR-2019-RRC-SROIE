@@ -179,10 +179,13 @@ As one can notice, this implementation of the CTPN is slightly different from th
 5. The negative and positive ratio was changed from `1:1` to `3:1`. It was found that this leads to faster optimization
    and a more stable training.
 
-6. Because of the imbalance between the number of positive and negative anchors, `λ1` from the regression loss is set to
+6. The regression loss used in the CTPN is the smooth L1 loss. Altough it is a good loss, it is not free from outliers.
+   That is why the balanced L1 loss was used.
+
+7. Because of the imbalance between the number of positive and negative anchors, `λ1` from the regression loss is set to
    4 to balance the loss terms.
 
-7. The data augmentation strategy described in the SSD paper: https://arxiv.org/abs/1512.02325 was used to generate many
+8. The data augmentation strategy described in the SSD paper: https://arxiv.org/abs/1512.02325 was used to generate many
    more training samples as the SROIE dataset is very small (less than 1000 images and annotations).
 
 In order to improve my results, here are two potentials solutions I can think of:
