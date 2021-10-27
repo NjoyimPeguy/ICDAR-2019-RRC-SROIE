@@ -1,0 +1,5 @@
+{
+    "address": "3RD FLR, AEON TAMAN MALURI SC JLN JEJAKA, TAMAN MALURI CHERAS, 55100 KUALA LUMPUR",
+    "date": "14/04/2018",
+    "total": "50.90"
+}

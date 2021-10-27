@@ -1,0 +1,22 @@
+name: SROIE2019
+channels:
+  - pytorch
+  - defaults
+dependencies:
+  - python=3.7
+  - numpy
+  - pytorch
+  - torchvision
+  - cudatoolkit # if you do not own any NVIDIA GPUs or CUDA support, you can remove this line.
+  - pip
+  - opencv
+  - pip:
+      - vizer
+      - yacs
+      - visdom
+      - sklearn
+      - fuzzywuzzy
+      - python-Levenshtein
+      - regex
+      - pytorch-model-summary
+      - PyYAML

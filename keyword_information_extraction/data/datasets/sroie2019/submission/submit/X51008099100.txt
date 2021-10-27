@@ -1,0 +1,6 @@
+{
+    "company": "PAPPARICH BMC",
+    "address": "NO.19 & 21 JALAN TEMENGGUNG 23/9 BANDAR MAHKOTA CHERAS 43200 SELANGOR DARUL EHSAN, MALAYSIA",
+    "date": "29 JUN 18",
+    "total": "46.90"
+}

@@ -1,0 +1,6 @@
+{
+    "company": "YONG CEN ENTERPRISE",
+    "address": "9, JALAN SUBANG JASA 3, 40150 SHAH ALAM, SELANGOR.",
+    "date": "21/05/2017",
+    "total": "108.00"
+}

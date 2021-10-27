@@ -1,0 +1,6 @@
+{
+    "company": "NASI KANDAR PELITA SAMUDRA PERTAMA (M) SDN BHD.",
+    "address": "NO.2-1,JALAN KAMARUDDIN ISA 31400 IPOH,PERAK DARUL RIDZUAN",
+    "date": "03/06/2018",
+    "total": "61.70"
+}

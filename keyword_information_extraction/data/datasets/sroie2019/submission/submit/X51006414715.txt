@@ -1,0 +1,5 @@
+{
+    "company": "SECRET RECIPE RESTAURANT",
+    "address": "LOT G16, PERMAS JAYA JUSCO",
+    "date": "4/22/2018"
+}

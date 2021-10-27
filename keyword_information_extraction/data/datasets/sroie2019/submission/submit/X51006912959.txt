@@ -1,0 +1,6 @@
+{
+    "company": "ROYALTEA",
+    "address": "NO. 23, JALAN SUTERA TANJUNG 8/3, TAMAN SUTERA UTAMA 81300 SKUDAI JOHOR,MALAYSIA.",
+    "date": "09/05/2018",
+    "total": "10.90"
+}

@@ -1,0 +1,6 @@
+{
+    "company": "KEDAI PAPAN YEW CHUAN",
+    "address": "LOT 276 JALAN BANTING 43800 DENGKIL, SELANGOR.",
+    "date": "10/03/2018",
+    "total": "84.80"
+}

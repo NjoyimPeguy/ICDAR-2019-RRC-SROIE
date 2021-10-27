@@ -1,0 +1,5 @@
+{
+    "company": "ECONSAVE CASH & CARRY (FC) S/B",
+    "date": "22/03/18",
+    "total": "5.15"
+}

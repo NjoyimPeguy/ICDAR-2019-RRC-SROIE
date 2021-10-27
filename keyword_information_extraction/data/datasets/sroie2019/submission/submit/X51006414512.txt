@@ -1,0 +1,6 @@
+{
+    "company": "BHPETROL PERMAS JAYA 2",
+    "address": "LOT PTD 101051 JALAN PERMAS 10/10 81750 MASAI, JOHOR",
+    "date": "03-04-2018",
+    "total": "50.00"
+}

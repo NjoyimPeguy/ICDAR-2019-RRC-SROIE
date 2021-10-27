@@ -1,0 +1,6 @@
+{
+    "company": "THE COFFEE BEAN & TEA LEAF (M) SDN. BHD.",
+    "address": "UNIT G047, GROUND FLOOR MID VALLEY MEGAMALL MID VALLEY CITY, LINGKARAN SYED PUT 59200 KUALA LUMPUR",
+    "date": "15/12/2017",
+    "total": "39.70"
+}

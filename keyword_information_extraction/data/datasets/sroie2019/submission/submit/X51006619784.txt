@@ -1,0 +1,6 @@
+{
+    "company": "BIZ LINK SECURITY & OA TRADING",
+    "address": "LOT TC007 & 008, 3RD FLOOR, SG. WANG PLAZA",
+    "date": "7/6/2016",
+    "total": "399.00"
+}

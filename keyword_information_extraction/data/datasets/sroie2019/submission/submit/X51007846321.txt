@@ -1,0 +1,6 @@
+{
+    "company": "CHEF HENRY RIBS HOUSE",
+    "address": "4, JALAN KEBUDAYAAN 1 TAMAN UNIVERSITI 81300, SKUDAI",
+    "date": "05/06/2018",
+    "total": "103.85"
+}

@@ -1,0 +1,6 @@
+{
+    "company": "HUGO TRADING SDN BHD",
+    "address": "LOT 8&9, KOMPLEKS PASAR BORONG SELANGOR, 43300 SERI KEMBANGAN, SEL",
+    "date": "13/01/2018",
+    "total": "40.80"
+}

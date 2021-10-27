@@ -1,0 +1,5 @@
+{
+    "company": "SIN LIANHAP SDN BHD",
+    "date": "05/02/2018",
+    "total": "7.30"
+}

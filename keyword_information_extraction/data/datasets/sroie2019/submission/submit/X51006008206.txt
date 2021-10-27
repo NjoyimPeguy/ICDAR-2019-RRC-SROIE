@@ -1,0 +1,6 @@
+{
+    "company": "BURGER KING",
+    "address": "LOT SATMZ 23, MEZZANINE LEVEL SA",
+    "date": "2018/03/27",
+    "total": "RM63.90"
+}

@@ -1,0 +1,6 @@
+{
+    "company": "MONSIEUR ( M ) SDN. BHD.",
+    "address": "LOT S319A, 2ND FLOOR,",
+    "date": "01/05/2016",
+    "total": "8.80"
+}

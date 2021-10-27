@@ -1,0 +1,6 @@
+{
+    "company": "BEYOND BROTHERS HARDWARE",
+    "address": "LOT 1-0-2, JLN 1/50, DIAMOND SQUARE, OFF JLN GOMBAK 53000 KUALA LUMPUR",
+    "date": "10/11/2017",
+    "total": "67.85"
+}

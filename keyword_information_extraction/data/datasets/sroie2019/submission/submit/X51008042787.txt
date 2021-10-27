@@ -1,0 +1,6 @@
+{
+    "company": "FISH FARM THAI RESTAURANT VEG S/B",
+    "address": "KM 4, JLN AMPANG, HULU LANGAT, 68000 AMAPNG, SELANGOR.",
+    "date": "01/05/2018",
+    "total": "412.90"
+}

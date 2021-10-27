@@ -1,0 +1,6 @@
+{
+    "company": "EVERGREEN LIGHT SDN BHD",
+    "address": "NO.7-1, JALAN PUTERI 7/11, BANDAR PUTERI, 47100 PUCHONG, BELANGOR",
+    "date": "10/07/2017",
+    "total": "56.00"
+}

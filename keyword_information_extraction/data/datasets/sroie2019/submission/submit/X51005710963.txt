@@ -1,0 +1,6 @@
+{
+    "company": "TS TOOLS HARDWARE & MACHINERY SDN BHD",
+    "address": "59, JALAN BANDAR SATU, PUSAT BANDAR PUCHONG 47160, PUCHONG, SELANGOR",
+    "date": "21/03/2018",
+    "total": "7.40"
+}

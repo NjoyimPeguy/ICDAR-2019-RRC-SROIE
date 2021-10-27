@@ -1,0 +1,6 @@
+{
+    "company": "KING'S CONFECTIONERY S/B",
+    "address": "3425, GR. FLOOR JLN THEATER, JINJANG UTARA 52100 K.L.",
+    "date": "10/10/17",
+    "total": "70.00"
+}

@@ -1,0 +1,5 @@
+{
+    "company": "PLATINUM RACKING SDN BHD",
+    "date": "22/04/2018",
+    "total": "23.00"
+}

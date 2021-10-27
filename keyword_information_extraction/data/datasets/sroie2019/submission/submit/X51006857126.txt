@@ -1,0 +1,6 @@
+{
+    "company": "SKL DAMANSARA ENTERPRISE",
+    "address": "69G, JALAN SS21/60, DAMANSARA UTAMA, 47400 PETALING JAYA, SELANGOR.",
+    "date": "28/07/17",
+    "total": "28.80"
+}

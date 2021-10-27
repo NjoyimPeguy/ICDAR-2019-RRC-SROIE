@@ -1,0 +1,6 @@
+{
+    "company": "YAM FRESH",
+    "address": "NO.145G, JALAN RIMBUNAN RAYA 1, LAMAN RIMBUNAN KEPONG, 52100 KUALA LUMPUR",
+    "date": "2016-07-31",
+    "total": "RM7.95"
+}

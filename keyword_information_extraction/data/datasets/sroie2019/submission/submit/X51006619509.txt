@@ -1,0 +1,6 @@
+{
+    "company": "GUDANG HASIL RESTAURANT SDN BHD",
+    "address": "NO. 33, LRG HANG JEBAT, MELAKA",
+    "date": "02-12-2016",
+    "total": "RM15.80"
+}

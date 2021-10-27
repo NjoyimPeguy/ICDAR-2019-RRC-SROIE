@@ -1,0 +1,5 @@
+{
+    "company": "SEN LEE HEONG RESTAURANT",
+    "date": "12-01-2018",
+    "total": "77.40"
+}

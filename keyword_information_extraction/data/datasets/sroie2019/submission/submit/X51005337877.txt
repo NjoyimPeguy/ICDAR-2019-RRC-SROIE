@@ -1,0 +1,6 @@
+{
+    "company": "UROKO JAPANESE CUISINE SDN BHD",
+    "address": "22A-1, JALAN 17/54, SECTION 17, 46400 PETALING JAYA, SELANGOR.",
+    "date": "20/03/2018",
+    "total": "53.00"
+}

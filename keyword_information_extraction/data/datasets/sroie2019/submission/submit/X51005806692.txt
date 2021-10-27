@@ -1,0 +1,6 @@
+{
+    "company": "GREAT ZONE HOUSEHOLD CENTRE SDN BHD",
+    "address": "60 & 62. JALAN CIKU, 86000,KLUANG",
+    "date": "18/02/2018",
+    "total": "367.30"
+}

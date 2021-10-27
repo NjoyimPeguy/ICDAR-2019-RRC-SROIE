@@ -1,0 +1,6 @@
+{
+    "company": "SWC ENTERPRISE SDN BHD",
+    "address": "8 & 10, JALAN IJOK PERMAI 1, PUSAT NIAGA IJOK PERMAI, 48000 IJOK, SELANGOR.",
+    "date": "02/01/2018",
+    "total": "4.20"
+}

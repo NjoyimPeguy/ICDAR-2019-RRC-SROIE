@@ -1,0 +1,6 @@
+{
+    "company": "SAINT HEART PASTRY",
+    "address": "29,JLN SJ 17, TMN SELAYANG JAYA, 68100 BATU CAVES, SELANGOR",
+    "date": "25/03/2018",
+    "total": "8.20"
+}

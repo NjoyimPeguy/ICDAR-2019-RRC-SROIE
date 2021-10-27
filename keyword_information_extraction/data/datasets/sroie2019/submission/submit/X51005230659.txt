@@ -1,0 +1,6 @@
+{
+    "company": "SWC ENTERPRISE SDN BHD",
+    "address": "NO. 5-7, JALAN MAHAGONI 7/1, SEKYSEN 4, BANDAR UTAMA, 44300 BATANG KALI, SELANGOR.",
+    "date": "08/01/2018",
+    "total": "8.00"
+}

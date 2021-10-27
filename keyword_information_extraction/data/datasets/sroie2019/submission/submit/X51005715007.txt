@@ -1,0 +1,6 @@
+{
+    "company": "KAISON FURNISHING SDN BHD",
+    "address": "LOT NO. L3-012, LEVEL 3, MYTOWN SHOPPING CENTRE, NO. 6, JALAN COCHRANE,",
+    "date": "25-03-18",
+    "total": "18.70"
+}

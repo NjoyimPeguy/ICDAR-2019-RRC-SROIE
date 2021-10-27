@@ -1,0 +1,6 @@
+{
+    "company": "BIRU PETROLEUM",
+    "address": "KELANA JAYA. 47301 PETALING SELANGOR DARUL EHSAN.",
+    "date": "11/11/16",
+    "total": "6.40"
+}

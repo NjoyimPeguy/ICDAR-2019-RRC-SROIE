@@ -1,0 +1,6 @@
+{
+    "company": "PREMIO STATIONERY SDN BHD",
+    "address": "NO 57, JALAN SS 3/29, 47300 PETALING JAYA, SELANGOR",
+    "date": "20/03/2018",
+    "total": "13.40"
+}

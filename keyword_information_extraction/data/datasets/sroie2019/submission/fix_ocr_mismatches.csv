@@ -1,0 +1,120 @@
+Sample,Filename,Category,Correction
+1,X00016469670,address,"Change this ""81750"" into this one ""B1750""."
+4,X51005230605,address,"Remove the whitespace between ""SELATAN,"" and ""SG"""
+6,X51005230621,address,Remove the address for a fair comparison with other participants.
+7,X51005230648,address,"Add the whitespace between ""47,"" and ""JALAN"""
+10,X51005268275,address,"Remove the whitespace between ""D."" and ""E"""
+11,X51005268408,company,Remove only “ (S19537-X)”
+13,X51005301666,address,"Remove the whitespace between ""D."" and ""E"""
+14,X51005337867,company,Remove the company for a fair comparison with other participants.
+16,X51005361906,company,Change “TEO” into “TED”.
+20,X51005365187,address,"Change “KEMBANGAN,” into “KEMBANGAN.”"
+23,X51005433548,address,"Change this ""B1750"" into this one ""81750""."
+24,X51005433556,address,"Change the comma by a point at the very end (i.e., right after JOHOR)."
+25,X51005442322,date,"Change the date from ""03 MAR 18"" to ""03 MAR 19""."
+26,X51005442334,address,Remove the address for a fair comparison with other participants.
+27,X51005442343,address,"Change the comma by a point at the very end (i.e., right after JOHOR)."
+28,X51005442366,address,"Remove the capital letter ""A"" at the end of the word ""JAY"" that is at the end of the line."
+30,X51005442382,address,"Change the second word ""TAMPOL"" into ""TAMPOI"" then “PERINDUSTRLAN” into “PERINDUSTRIAN”."
+31,X51005442388,address,"Remove the whitespace between ""10/7,"" and ""PERMAS"""
+36,X51005447841,address,Remove the whitespace between “19-1” and “&”
+39,X51005447851,address,Change “19-G& 19-1& 19-2” into “19-G&19-1&19-2”.
+44,X51005568887,date,"Change the date from ""06/04/2017"" to ""26/04/2017"""
+52,X51005587261,address,"Change  “PER,” into “PER.” into “SEK,” into “SEK.”."
+52,X51005587261,date,"Change the date from ""23/03/2017"" to ""23/03/17"""
+54,X51005605295,address,Remove the address for a fair comparison with other participants.
+55,X51005605332,address,"Change “NO 8.” into “NO 8,”."
+56,X51005621482,address,Remove the point at the very end.
+57,X51005663274,address,"Remove the point right after the word “VILLAGE” then change “NO 7.” into “NO 7,”"
+58,X51005663300,address,"Change “NO 7.” into “NO 7,” then “KUATA” into “KUALA”."
+59,X51005663307,address,Change the point by a comma right after the word “RAMPAI”.
+64,X51005675103,address,Add the point at the end of the address.
+65,X51005675104,address,Add the point at the end of the address.
+66,X51005675914,address,"Change the word ""LUMPER"" into ""LUMPUR"""
+69,X51005676537,address,Add the point at the end of the address.
+70,X51005676542,address,Add the point at the end of the address.
+71,X51005676548,address,"Change “NO 290.” into “NO 290,” then “PANAS.” into “PANAS,” then “SETAPAK.” into “SETAPAK,”."
+72,X51005677327,address,"Change “NO 290.” into “NO 290,” then “PANAS.” into “PANAS,” then “SETAPAK.” into “SETAPAK,”."
+73,X51005677333,address,"Change “PANAS.” into “PANAS,”."
+74,X51005677336,address,"Add the whitespace between “NO 290,” and “JALAN” then change “53200,KUALA” into “53200, KUALA”."
+78,X51005705727,address,"Add the whitespace between ""D."" and ""E""."
+79,X51005705729,address,"Change “25/C.” into “25/C,” then “INDUSTRIES.” into “INDUSTRIES,”."
+88,X51005715455,company,Change “MAPT” into “MART”.
+88,X51005715455,total,Change “10.60” into “RM 10.60”.
+90,X51005719855,address,"Change “RAINFOREST ,” into “RAINFOREST,”."
+91,X51005719857,address,Remove the address for a fair comparison with other participants.
+92,X51005719863,address,Remove the address for a fair comparison with other participants.
+93,X51005719888,address,"Change “BATU 11 ,” into “BATU 11 .”."
+96,X51005719898,company,Remove the company for a fair comparison with other participants.
+96,X51005719898,address,"Change “1851-B ,” into “1851-B,” then “JALAN KPB 6 ,” into JALAN KPB 6,” then “BALAKONG ,” into “BALAKONG,” then “KEMBANGAN ,” into “KEMBANGAN,”."
+97,X51005719903,address,"Remove the whitespace between “UPTOWN3 NO.” and “3,” then “SS21/39,” and “47400”."
+98,X51005719905,address,"Remove the whitespace between “17” and “,”."
+102,X51005724623,company,Change “CHUAN” into “CHJAN”.
+102,X51005724623,address,Change “43800” into “800”.
+109,X51005745213,address,"Change “NO.52.” into “NO.52,” then “U5/BT.” into “U5/BT,” then “SUBANG.” into “SUBANG,”."
+110,X51005745244,company,"Remove only “ (417940-M),”"
+113,X51005746204,address,Add the point at the end of the address.
+113,X51005746204,company,Remove the point right after the word “SDN”.
+114,X51005746206,address,"Move “JALAN DINAR D. “ before “U3/D.” then change “JALAN DINAR D.” into “JALAN DINAR D,” then “NO. 10-G.” into “NO. 10-G,” then “FLOOR .” into “FLOOR.” and finally “PERDANA.” into “PEADANA.”"
+117,X51005749904,address,Change “SHAH” into “SHAN”.
+118,X51005757233,address,Change “BAMDAR” into “BANDAR”.
+120,X51005757292,total,"Remove ""RM ""."
+120,X51005757292,address,"Change “BALAKONG ,” into “BALAKONG,”."
+121,X51005757308,address,"Change “KPB 6 ,” into “KPB 6,” then “BALAKONG ,” into “BALAKONG,”."
+121,X51005757308,total,"Remove ""RM ""."
+122,X51005757342,address,"Change “BALAKONG ,” into “BALAKONG,”."
+122,X51005757342,total,"Remove ""RM ""."
+127,X51005764154,address,"Change “NO.” into “NO .” then “10-G,” into “10-G.” then “FLOOR,” into “FLOOR.” then “D,” into “D.” then “PERDANA,” into “PERDANA.” then “U3,” into “U3.” and finally “ALAM.SELANGOR” into “ALAM. SELANGOR”"
+127,X51005764154,total,Change “205.50” into “205.5”.
+133,X51005806719,address,"Add the whitespace between ""NO."" and ""42,"".  Then change “KEMBANGAN,” into “KEMBANGAN.”."
+134,X51005806720,address,"Change all occurences “SELANGOR,” into “SELANGOR.” then “KEMBANGAN,” into “KEMBANGAN.”"
+142,X51006008166,address,"Remove the whitespace between ""2.70.00,"" and ""LEVEL"""
+144,X51006248253,address,"Change “2-047,LEVEL” into “2-047, LEVEL” then “ALWI,93350” into “ALWI, 93350”."
+147,X51006327960,company,Remove only “ 273500-U (GKJ)” and change “KINGS” into “KING’S”.
+148,X51006328345,company,Remove only “ 273500-U (KJ1)” and change “KINGS” into “KING’S”.
+151,X51006329183,address,Change “KG” into “KG.”
+153,X51006332641,address,"Change “ALAM,” into “ALAM.”."
+157,X51006334770,address,Change “NO. 36G” into “NO.36G”
+162,X51006349083,address,"Change “DAMANSARA ,” into “DAMANSARA,”."
+163,X51006349085,address,Remove the address for a fair comparison with other participants.
+171,X51006388081,company,Remove only “ 273500-U (KJ1)” and change “KINGS” into “KING’S”.
+173,X51006389894,company,Remove only “ 273500-U (JJ)” and change “KINGS” into “KING’S”.
+173,X51006389894,address,"Change “THEATER ,” into “THEATER,”."
+181,X51006414433,address,"Change “7/4 KAWASAN” into “7/4,KAWASAN”."
+182,X51006414512,address,Change “8175” into “81750”.
+183,X51006414532,company,Remove only the parenthesis. The one at the very beginning and the one at the very end.
+183,X51006414532,address,Change “BERJAYA” into “BER JAYA”
+183,X51006414532,total,"Remove ""RM ""."
+185,X51006414600,company,Remove the company for a fair comparison with other participants.
+194,X51006502540,address,"Change “SS21/39,47400” into “SS21/39, 47400”."
+208,X51006556806,address,"Change “ALAM,” into “ALAM”."
+231,X51006619503,address,"Change “BARU” into “BARU,”."
+232,X51006619506,address,Change “LUMPUR.” into “LUMPUR”.
+233,X51006619507,address,Remove the address for a fair comparison with other participants.
+234,X51006619509,address,"Change “NO.33,” into “NO. 33,”."
+247,X51006619784,address,Change “3ND” into “3RD”.
+249,X51006619842,Date,Change “3 JUN 2016” into “03 JUN 2016”
+257,X51006647984,address,Remove the address for a fair comparison with other participants.
+258,X51006733495,total,Remove “RM “.
+259,X51006828199,address,Remove the address for a fair comparison with other participants.
+267,X51006912959,company,Change “**ROYALTEA**” into “ROYALTEA”.
+269,X51006912998,total,Change “50.00” into “RM 50.00”.
+272,X51006913060,address,"Change “12,” into “2,”."
+278,X51007103687,total,Remove “RM ”.
+279,X51007225406,address,"Change “15/4D” into “15/4D,”."
+320,X51007846358,address,Change “JOHOR” into “JAHOR”
+322,X51007846361,address,"Remove the whitespace between ""NO.7G,"" and ""JALAN"""
+323,X51007846371,address,"Change “BAHRU,JOHOR” into BAHRU, JOHOR”."
+324,X51007846372,address,"Change “BAHRU,JOHOR” into BAHRU, JOHOR”."
+326,X51007846387,address,Change “NO.53” into “NO. 53”.
+327,X51007846392,address,"Change “BAHRU, JOHOR” into “BAHRU,JOHOR”."
+328,X51007846396,address,"Change “SS21/39,47400” into “SS21/39, 47400”."
+329,X51007846397,company,Remove the company for a fair comparison with other participants.
+329,X51007846397,address,"Remove the whitespace between “12,” and “JALAN”."
+330,X51007846400,address,"Change “10/5,” into “10/5.” then “JAYA.” into “JAYA,”."
+331,X51007846403,company,Change “**ROYALTEA**” into “ROYALTEA”.
+331,X51007846403,address,"Change  “NO.33 , JALAN” into “NO.33,JALAN” then “JOHOR,MALAYSIA. “ into “JOHOR ,MALAYSIA.“."
+337,X51008042786,address,"Change “NO.3,” into “NO.3 ,”."
+338,X51008042787,address,Change “JIN” into “JLN”.
+345,X51009447842,address,Change “19-1&19-2” into “19-1& 19-2”.
+346,X51009453729,address,"Change “1/9” into “1/9,”."

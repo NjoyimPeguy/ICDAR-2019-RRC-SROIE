@@ -1,0 +1,6 @@
+{
+    "company": "KING'S CONFECTIONERY S/B",
+    "address": "LOT NO. G23, GIANT KELANA JAYA LOT PT244, JLN PERBANDARAN SS6/4 PUSAT BANDAR KELANA JAYA, PETALING",
+    "date": "07/02/17",
+    "total": "9.90"
+}

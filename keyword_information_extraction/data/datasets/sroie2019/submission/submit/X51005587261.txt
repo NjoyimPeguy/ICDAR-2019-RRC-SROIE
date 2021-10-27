@@ -1,0 +1,6 @@
+{
+    "company": "CHOP YEW LIAN",
+    "address": "LOT PT 5121, PER. KLANG, SEK. 27 40000 SHAH ALAM, SELANGOR",
+    "date": "23/03/17",
+    "total": "30.00"
+}

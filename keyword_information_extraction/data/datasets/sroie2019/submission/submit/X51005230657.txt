@@ -1,0 +1,6 @@
+{
+    "company": "CROSS CHANNEL NETWORK SDN. BHD.",
+    "address": "47, JALAN MERANTI 1, SEK. 3, BANDAR UTAMA BATANG KALI, 44300 BATANG KALI, SELANGOR.",
+    "date": "31/12/2017",
+    "total": "7.95"
+}

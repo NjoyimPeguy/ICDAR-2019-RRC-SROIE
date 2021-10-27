@@ -1,0 +1,6 @@
+{
+    "company": "CPI ROCKU SDN. BHD.",
+    "address": "LOT F355/356/357, FIRST FLOOR, RAINFOREST, 1 UTAMA SHOPPING CENTRE, LEBUH BANDAR UTAMA, 47800 PETALING JAYA",
+    "date": "19/02/2018",
+    "total": "181.55"
+}
