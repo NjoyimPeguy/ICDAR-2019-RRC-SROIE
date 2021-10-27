@@ -1,0 +1,27 @@
+# compilation and distribution
+__pycache__
+*.pyc
+*.so
+
+# pytorch/python/numpy formats
+*.pth
+*.pkl
+*.npy
+
+# ipython/jupyter notebooks
+*.ipynb
+**/.ipynb_checkpoints/
+
+# Ignoring the default events directory.
+*/outputs
+
+# Editor temporaries
+*.swn
+*.swo
+*.swp
+*~
+*.vscode
+
+# Pycharm editor settings
+.idea
+.DS_Store

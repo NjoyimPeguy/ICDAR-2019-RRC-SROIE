@@ -149,8 +149,8 @@ comparison results):
 
 |  Task  |   Recall  | Precision |  Hmean   | Evaluation Method  |     Model      |   Parameters   | Model Size | Weights |
 | :----: | :-------: | :-------: | :------: | :----------------: | :------------: | :------------: | :--------: | :--------------------------------------------------------------------------------------------------------------------------------- |
-| Task 1 |   97.16%  |   97.10%  |  97.13%  |      Deteval       |     CTPN       |   16,900,032   |  268.3 MB  | [Last checkpoint]() |
-| task 3 |   96.18%  |   97.45%  |  96.81%  |         /          |     Char LM    |   4,740,590    |  75.9 MB   | [last checkpoint]() |
+| Task 1 |   97.16%  |   97.10%  |  97.13%  |      Deteval       |     CTPN       |   16,900,032   |  268.3 MB  | [Last checkpoint](https://github.com/BlackStar1313/ICDAR-2019-RRC-SROIE/releases/download/v1.0/CTPN_FINAL_CHECKPOINT.pth) |
+| task 3 |   96.18%  |   97.45%  |  96.81%  |         /          |     Char LM    |   4,740,590    |  75.9 MB   | [last checkpoint](https://github.com/BlackStar1313/ICDAR-2019-RRC-SROIE/releases/download/v1.0/CHARLM_CNN_HIGHWAY_LSTM_FINAL_CHECKPOINT.pth) |
 
 ## User guide <a name="user-guide"/>
 

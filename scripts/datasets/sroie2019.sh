@@ -19,7 +19,7 @@ else
 fi
 
 echo "Downloading the Scanned receipt dataset..."
-curl -L "" -o SROIE2019.zip
+curl -L "https://github.com/BlackStar1313/ICDAR-2019-RRC-SROIE/releases/download/v1.0/SROIE2019.zip" -o SROIE2019.zip
 echo "Done downloading."
 
 # Extract data
