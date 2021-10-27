@@ -7,7 +7,7 @@ dependencies:
   - numpy
   - pytorch
   - torchvision
-  - cudatoolkit # if you do not own any NVIDIA GPUs or CUDA support, you can remove this line.
+  - cudatoolkit
   - pip
   - opencv
   - pip:

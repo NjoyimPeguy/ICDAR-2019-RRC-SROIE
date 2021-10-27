@@ -136,8 +136,8 @@ the [environment variables](https://stackoverflow.com/questions/17312348/how-do-
 
 ## Methods <a name="methods"/>
 
-Here are methods used for the competition. Inside each folder representing the task
-name, there are documentations of the proposed method and the training, demo and evaluation procedures as well.
+Here are methods used for the competition. Inside each folder representing the task name, there are documentations of
+the proposed method and the training, demo and evaluation procedures as well.
 
 - **Task 1 - Text Localization**: Connectionist Text Proposal Network (CTPN).
 - **Task 3 - Keyword Information Extraction**: Character-Aware CNN + Highway + BiLSTM (Char LM).
@@ -186,9 +186,14 @@ this [documentation](https://docs.continuum.io/anaconda/install/).
    ```
 
    This will create a new conda environment named `SROIE2019` on your system, which will give you all the packages
-   needed for this repo.
+   needed for this repo. If you do not own any NVIDIA GPUs (with CUDA capable-system), then you must remove
+   the `cudatoolkit` line in the [environment.yml](env/environment.yml) file. Otherwise, make sure your graphic card
+   supports the installed version of CUDA. If that is not the case then this
+   function : [torch.cuda.is_available()](https://pytorch.org/docs/stable/generated/torch.cuda.is_available.html) will
+   return false. Either you update or downgrade your NVIDIA drivers, or you specify the `cudatoolkit` version in the environment YAML
+   file (for instance ``cudatoolkit=9.0``).
 
-3. Activating the new environment
+4. Activating the new environment
 
    ```
    conda activate SROIE2019
@@ -202,7 +207,7 @@ this [documentation](https://docs.continuum.io/anaconda/install/).
 
    If you want to deactivate the environment, you can simply do: `conda deactivate`
 
-4. Verify that the new environment was installed correctly
+5. Verify that the new environment was installed correctly
 
    ```
    conda env list
@@ -279,7 +284,6 @@ If you use this project in your research, please cite it as follows:
   url    = {https://github.com/BlackStar1313/ICDAR-2019-RRC-SROIE}
 }
 ```
-
 
 ## TODO <a name="todo"/>
 
