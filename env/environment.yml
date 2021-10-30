@@ -1,23 +1,23 @@
 name: SROIE2019
 channels:
-  - pytorch
-  - defaults
   - conda-forge
 dependencies:
   - python=3.7
+  - pip
   - numpy
   - pytorch
   - torchvision
   - cudatoolkit
-  - pip
+  - cudnn
   - opencv
+  - python-Levenshtein
+  - scikit-learn
+  - fuzzywuzzy
+  - pyyaml
+  - visdom
+  - jsonpatch
+  - pytorch-model-summary
+  - regex
+  - yacs
   - pip:
       - vizer
-      - yacs
-      - visdom
-      - sklearn
-      - fuzzywuzzy
-      - python-Levenshtein
-      - regex
-      - pytorch-model-summary
-      - PyYAML

@@ -48,7 +48,8 @@ class CTPN(torch.nn.Module):
             f_out_channels: The very first output channel.
             n_classes: The number of classes.
             n_anchors: The number of anchor boxes.
-            pretrained_backbone: A boolean indicating whether the VGG16's model is loaded from scratch or with pretrained weights.
+            pretrained_backbone: A boolean indicating whether the VGG16's model is loaded from scratch or
+                with pretrained weights.
             
         """
         

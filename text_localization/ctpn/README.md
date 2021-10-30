@@ -55,13 +55,13 @@ Here are examples of running the [train.py](./train.py):
 Be aware that it is not recommended doing the training on CPU!
 
 ```
-python3 text_localization/ctpn/train.py
+python text_localization/ctpn/train.py
 ```
 
 ### Single GPU <a name="single-gpu-training"/>
 
 ```
-python3 text_localization/ctpn/train.py --use-cuda --gpu-device 0
+python text_localization/ctpn/train.py --use-cuda --gpu-device 0
 ```
 
 ## Demo <a name="demo"/>
@@ -75,13 +75,13 @@ under `text_localization/ctpn/outputs` by defaults as well.
 ### Single CPU <a name="single-cpu-demo"/>
 
 ```
-python3 text_localization/ctpn/demo.py --trained-model /path/to/the/checkpoint/pth/file
+python text_localization/ctpn/demo.py --trained-model /path/to/the/checkpoint/pth/file
 ```
 
 ### Single GPU <a name="single-gpu-demo"/>
 
 ```
-python3 text_localization/ctpn/demo.py --trained-model /path/to/the/checkpoint/pth/file --use-cuda --gpu-device 0
+python text_localization/ctpn/demo.py --trained-model /path/to/the/checkpoint/pth/file --use-cuda --gpu-device 0
 ```
 
 You should normally get a similar output:
@@ -114,13 +114,13 @@ events (logs, submit.zip and so on) will be saved under `text_localization/ctpn/
 ### Single CPU <a name="single-cpu-eval"/>
 
 ```
-python3 text_localization/ctpn/evaluation.py --trained-model /path/to/the/checkpoint/pth/file
+python text_localization/ctpn/evaluation.py --trained-model /path/to/the/checkpoint/pth/file
 ```
 
 ### Single GPU <a name="single-gpu-eval"/>
 
 ```
-python3 text_localization/ctpn/evaluation.py --trained-model /path/to/the/checkpoint/pth/file --use-cuda --gpu-device 0
+python text_localization/ctpn/evaluation.py --trained-model /path/to/the/checkpoint/pth/file --use-cuda --gpu-device 0
 ```
 
 You should normally get a similar output:

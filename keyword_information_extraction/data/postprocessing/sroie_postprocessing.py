@@ -127,11 +127,12 @@ def convert_predictions_to_dict(class_dict: dict, raw_texts: str, predicted_clas
             # is to get the one with the highest probability.
             if new_category in ("total", "date"):
                 idx = probabilities.index(new_probability, seps[i], seps[i + 1])
-                best_predicted_text = raw_texts[idx]
+                if 0 <= idx < len(raw_texts):
+                    results[new_category] = (raw_texts[idx], str(new_probability))
             else:
                 str_list = raw_texts[seps[i]: seps[i + 1]]
                 best_predicted_text = " ".join(str_list) if len(str_list) != 0 else ""
-            results[new_category] = (best_predicted_text, str(new_probability))
+                results[new_category] = (best_predicted_text, str(new_probability))
     
     # Then, we clean up date, total and undetected categories.
     null_categories = []

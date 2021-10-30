@@ -7,6 +7,7 @@ if [ -z "$1" ]; then
   # navigate to ~/data
   echo "Navigating to ~/SROIE2019/ ..."
   mkdir -p ~/SROIE2019
+  # shellcheck disable=SC2164
   cd ~/SROIE2019/
 # check if is valid directory
 elif [ ! -d "$1" ]; then

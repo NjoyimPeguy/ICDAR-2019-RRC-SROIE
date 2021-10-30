@@ -1,7 +1,9 @@
 import numpy as np
 
+from typing import List
 
-def to_xy_min_max(bboxes: np.ndarray) -> np.ndarray:
+
+def to_xy_min_max(bboxes: np.ndarray) -> List[int]:
     """
     Convert one bounding box whose form is: [x1, y1, x2, y2, x3, y3, x4, y4] into a box of form (xmin, ymin, xmax, ymax)
 

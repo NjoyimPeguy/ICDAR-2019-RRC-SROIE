@@ -187,11 +187,8 @@ this [documentation](https://docs.continuum.io/anaconda/install/).
 
    This will create a new conda environment named `SROIE2019` on your system, which will give you all the packages
    needed for this repo. If you do not own any NVIDIA GPUs (with CUDA capable-system), then you must remove
-   the `cudatoolkit` line in the [environment.yml](env/environment.yml) file. Otherwise, make sure your graphic card
-   supports the installed version of CUDA. If that is not the case then this
-   function : [torch.cuda.is_available()](https://pytorch.org/docs/stable/generated/torch.cuda.is_available.html) will
-   return false. Either you update or downgrade your NVIDIA drivers, or you specify the `cudatoolkit` version in the environment YAML
-   file (for instance ``cudatoolkit=9.0``).
+   the `cudatoolkit` and `cudnn` lines in the [environment.yml](env/environment.yml) file. Otherwise, make sure your graphic card
+   supports the installed version of CUDA.
 
 4. Activating the new environment
 

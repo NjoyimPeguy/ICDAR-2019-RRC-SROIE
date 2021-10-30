@@ -69,13 +69,13 @@ Here are examples of running the [train.py](./train.py).
 Be aware that it is not recommended doing to train with CPU!
 
 ```
-python3 keyword_information_extraction/train.py
+python keyword_information_extraction/train.py
 ```
 
 ### Single GPU <a name="single-gpu-training"/>
 
 ```
-python3 keyword_information_extraction/train.py --use-cuda --gpu-device 0
+python keyword_information_extraction/train.py --use-cuda --gpu-device 0
 ```
 
 ## Evaluation <a name="evaluation"/>
@@ -88,13 +88,13 @@ all the evaluation events (logs, submit.zip and so on) will be saved under `keyw
 ### Single CPU <a name="single-cpu-eval"/>
 
 ```
-python3 keyword_information_extraction/evaluation.py  --trained-model /path/to/the/checkpoint/pth/file
+python keyword_information_extraction/evaluation.py  --trained-model /path/to/the/checkpoint/pth/file
 ```
 
 ### Single GPU <a name="single-gpu-eval"/>
 
 ```
-python3 keyword_information_extraction/evaluation.py --trained-model /path/to/the/checkpoint/pth/file --use-cuda --gpu-device 0
+python keyword_information_extraction/evaluation.py --trained-model /path/to/the/checkpoint/pth/file --use-cuda --gpu-device 0
 ```
 
 ## Experimental results and discussions <a name="results"/>

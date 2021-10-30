@@ -23,23 +23,23 @@ class SROIE2019Dataset(Dataset):
             validation_args: The validation arguments.
             
         """
-        
+
         data_dir = new_dir["data-dir"]
         split = new_dir["split"]
         splits = ("test", "train", "val")
         if split not in splits:
             raise ValueError("The split provided is not supported! It must be one the {0}".format(splits))
-        
+
         path_to_csv_dir = osp.join(data_dir, split)
-        
+
         if split == "train":
             if osp.exists(path_to_csv_dir):
                 os.system("rm -rf " + path_to_csv_dir)
-                os.makedirs(path_to_csv_dir)
-        
+            os.makedirs(path_to_csv_dir)
+
         if split == "test" and not osp.exists(path_to_csv_dir):
             os.makedirs(path_to_csv_dir)
-        
+
         if len(os.listdir(path_to_csv_dir)) == 0:  # if the directory is empty...
             if split == "test":
                 generate_csv_for_evaluation(path_to_csv_dir)
@@ -47,20 +47,20 @@ class SROIE2019Dataset(Dataset):
                 generate_csv_for_training(save_folder=path_to_csv_dir,
                                           class_dict=class_dict,
                                           validation_args=validation_args)
-        
+
         # voc_file = osp.join(osp.abspath(osp.join(path_to_csv_dir, os.pardir)), "train-vocabulary.txt")
         # with open(file=voc_file, mode='r') as f:
         #     self.vocabulary = str(f.readline())
-        
+
         # max_length_file = osp.join(osp.abspath(osp.join(path_to_csv_dir, os.pardir)), "text-max-length.txt")
         # with open(file=max_length_file, mode='r') as f:
         #     max_length = f.readline()
         #     self.text_max_length = int(max_length)
-        
+
         self.vocabulary = SROIE_VOCAB
-        
+
         self.text_max_length = SROIE_TEXT_MAX_LENGTH
-        
+
         self.split = split
         csv_file_paths = list(sorted(os.scandir(path=path_to_csv_dir), key=lambda file: file.name))
         self.csv_filenames = [get_basename(csv_file.path) for csv_file in csv_file_paths]
@@ -68,7 +68,7 @@ class SROIE2019Dataset(Dataset):
         self.class_labels = []
         self.class_weights = []
         self.one_hot_text_encodings = []
-        
+
         for csv_filename in self.csv_filenames:
             curr_texts = []
             one_hot_texts = []
@@ -103,10 +103,10 @@ class SROIE2019Dataset(Dataset):
                     class_weight[classes == klass] = weight
                 self.class_weights.append(class_weight)
             self.one_hot_text_encodings.append(torch.from_numpy(np.array(one_hot_texts, dtype=np.int64)))
-    
+
     def __len__(self):
         return len(self.csv_filenames)
-    
+
     def __getitem__(self, index):
         one_hot_texts = self.one_hot_text_encodings[index]
         if self.split == "test":
@@ -114,7 +114,7 @@ class SROIE2019Dataset(Dataset):
         else:
             output = (one_hot_texts, self.class_labels[index], self.class_weights[index])
         return output
-    
+
     def text2Array(self, raw_text):
         """
         Convert a raw text to a one-hot character vectors.
@@ -128,13 +128,13 @@ class SROIE2019Dataset(Dataset):
         """
         if len(raw_text) == 0:
             raise ValueError("Cannot have an empty text!")
-        
+
         data = []
         for i, char in enumerate(raw_text):
             letter2idx = self.vocabulary.find(char) + 1  # +1 to avoid the confusion with the token padding value
             data.append(letter2idx)
         data = np.array(data, dtype=np.int64)
-        
+
         # the length of the text array must be at most max_length
         if len(data) > self.text_max_length:
             data = data[:self.text_max_length]
@@ -154,7 +154,7 @@ class TrainBatchCollator:
             class_labels_padding_value: The class label padding value to use in pad sequence function.
         """
         self.class_labels_padding_value = class_labels_padding_value
-    
+
     def __call__(self, batch_samples):
         one_hot_texts = []
         class_labels = []

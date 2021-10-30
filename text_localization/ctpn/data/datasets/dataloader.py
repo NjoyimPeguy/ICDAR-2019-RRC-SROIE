@@ -29,8 +29,8 @@ def create_dataloader(dataset, is_train: bool = False, start_iteration=1, max_it
     drop_last = kwargs["drop_last"]
     batch_sampler = BatchSampler(sampler=sampler, batch_size=batch_size, drop_last=drop_last)
     
-    # Once we set the following arguments below, we must remove them.
-    # Otherwise, we will get a ValueError: batch_sampler option is mutually exclusive with batch_size, shuffle, sampler, and drop_last
+    # Once we set the following arguments below, we must remove them. Otherwise, we will get a ValueError:
+    # batch_sampler option is mutually exclusive with batch_size, shuffle, sampler, and drop_last
     kwargs.pop("shuffle")
     kwargs.pop("batch_size")
     kwargs.pop("drop_last")

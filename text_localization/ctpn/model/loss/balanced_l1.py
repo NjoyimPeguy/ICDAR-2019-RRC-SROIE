@@ -5,7 +5,7 @@ class BalancedL1Loss(torch.nn.Module):
     
     def __init__(self, alpha=0.5, gamma=1.5, beta=1.0, reduction="mean"):
         """
-        Implemenation of the Balanced L1 Loss. arXiv: https://arxiv.org/pdf/1904.02701.pdf (CVPR 2019)
+        Implementation of the Balanced L1 Loss. arXiv: https://arxiv.org/pdf/1904.02701.pdf (CVPR 2019)
         
         Args:
             alpha: A float number that either increases more gradients for inliers (accurate samples) if it is small

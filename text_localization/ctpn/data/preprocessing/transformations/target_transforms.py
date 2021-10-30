@@ -126,7 +126,7 @@ def match_anchor_boxes(configs: dict, anchor_boxes: torch.Tensor, gt_boxes: torc
     device = gt_boxes.device
     n_gt_boxes = IoUs.size(1)
     
-    # Decalaration and initialisation of a new tensor containing the binary label for each anchor box.
+    # Declaration and initialisation of a new tensor containing the binary label for each anchor box.
     # For text/non-text classification, a binary label is assigned to each positive (text) or
     # negative (non-text) anchor. It is defined by computing the IoU overlap with the GT bounding box.
     # For now, We do not care about positive/negatives anchors.

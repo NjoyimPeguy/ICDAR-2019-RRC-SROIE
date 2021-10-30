@@ -43,9 +43,10 @@ class MultiBoxLoss(torch.nn.Module):
         
         n_classes = predicted_classes.size(2)
         
-        # ===================================================================================================================
-        # Localisation loss = BalancedL1Loss((predicted_locs, gt_locs) is computed only over positive (non-background) priors
-        # ===================================================================================================================
+        # =============================================================
+        # Localisation loss = BalancedL1Loss((predicted_locs, gt_locs)
+        # is computed only over positive (non-background) priors
+        # =============================================================
         
         # Identify anchors that are positives for localization/regression.
         positive_anchor_mask = gt_classes == self.positive_anchor_label
@@ -68,9 +69,10 @@ class MultiBoxLoss(torch.nn.Module):
         localization_loss = (self.lambda_reg / Nv) * self.balanced_l1_loss(inputs=predicted_matched_boxes,
                                                                            targets=gt_matched_boxes)
         
-        # =========================================================================================================
-        # Confidence loss = CrossEntropyLoss(predicted_cls, gt_cls) is computed over positive and negative anchors.
-        # =========================================================================================================
+        # =========================================================
+        # Confidence loss = CrossEntropyLoss(predicted_cls, gt_cls)
+        # is computed over positive and negative anchors.
+        # =========================================================
         
         # We first compute the confidence loss over positive anchors.
         positive_gt_classes = gt_classes[positive_anchor_mask].contiguous().view(-1)

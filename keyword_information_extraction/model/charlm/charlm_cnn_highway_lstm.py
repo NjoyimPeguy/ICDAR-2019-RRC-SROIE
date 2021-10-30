@@ -21,7 +21,8 @@ class CharacterLevelCNNHighwayBiLSTM(torch.nn.Module):
             padding_idx: int = 0
     ):
         """
-        A simple neural language model that relies only on character-level inputs which is based on this paper: https://arxiv.org/pdf/1508.06615.pdf
+        A simple neural language model that relies only on character-level inputs which is based on this paper:
+        https://arxiv.org/pdf/1508.06615.pdf
         
         Args:
             n_classes: The number of classes.
@@ -33,7 +34,8 @@ class CharacterLevelCNNHighwayBiLSTM(torch.nn.Module):
             use_batch_norm: A boolean that decides the use of BatchNorm1d.
             num_highway_layers: The number of highway networks.
             hidden_size: The number of features in the hidden state.
-            dropout: A probability that equals to dropout. If non-zero, this will introduce a Dropout Layer after the specified outputs.
+            dropout: A probability that equals to dropout.
+                If non-zero, this will introduce a Dropout Layer after the specified outputs.
         """
         super(CharacterLevelCNNHighwayBiLSTM, self).__init__()
         
@@ -42,11 +44,11 @@ class CharacterLevelCNNHighwayBiLSTM(torch.nn.Module):
         
         self.char_embeddings = torch.nn.Embedding(num_embeddings=char_vocab_size + 1,
                                                   embedding_dim=char_embedding_dim,
-                                                  # As we have the token padding value
-                                                  # we also need to set it in the character embedding.
-                                                  # And from the definition of 'padding_idx':
-                                                  # padding_idx pads the output with the embedding vector
-                                                  # at padding_idx (initialized to zeros) whenever it encounters the index.
+                                                  # As we have the token padding value we also need to set it in the
+                                                  # character embedding. And from the definition of 'padding_idx':
+                                                  # padding_idx pads the output with the embedding vector at
+                                                  # padding_idx (initialized to zeros) whenever it encounters the
+                                                  # index.
                                                   padding_idx=padding_idx)
         
         self.pool_layers = torch.nn.ModuleList(
@@ -138,7 +140,8 @@ class CharacterLevelCNNHighwayBiLSTM(torch.nn.Module):
             feature_map = pool_layer(char_embedded_features).squeeze()
             pool_layers.append(feature_map)
         
-        # CNN features shape: [BxN, total_num_filters] where total_num_filters is the sum over the CNN 1D output channels
+        # CNN features shape: [BxN, total_num_filters]
+        # where total_num_filters is the sum over the CNN 1D output channels
         cnn_features = torch.cat(pool_layers, dim=1)
         
         if self.use_batch_norm:

@@ -44,7 +44,8 @@ def main():
     # A boolean to check whether the user is able to use cuda or not.
     use_cuda = torch.cuda.is_available() and args.use_cuda
     
-    # One can comment the line below. It is important to note it is useful when some nasty errors like the NaN loss show up.
+    # One can comment the line below.
+    # It is important to note it is useful when some nasty errors like the NaN loss show up.
     torch.autograd.set_detect_anomaly(True)
     
     output_dir = os.path.normpath(configs.OUTPUT_DIR)

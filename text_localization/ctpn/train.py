@@ -16,7 +16,7 @@ from text_localization.ctpn.data.datasets.sroie2019 import SROIE2019Dataset
 from text_localization.ctpn.data.datasets.dataloader import create_dataloader
 from text_localization.ctpn.utils.misc import AverageMeter, Visualizer, get_process_time
 
-parser = argparse.ArgumentParser(description="Connectionnist Text Proposal Network: training phase")
+parser = argparse.ArgumentParser(description="Connectionist Text Proposal Network: training phase")
 
 parser.add_argument("--config-file", action="store", help="The path to the configs file.")
 parser.add_argument("--save-steps", default=10000, type=int, metavar="N",
