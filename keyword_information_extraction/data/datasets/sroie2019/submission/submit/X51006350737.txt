@@ -1,6 +1,0 @@
-{
-    "company": "C W KHOO HARDWARE SDN BHD",
-    "address": "NO.50 , JALAN PBS 14/11 , KAWASAN PERINDUSTRIAN BUKIT SERDANG,",
-    "date": "31/03/2018",
-    "total": "14.65"
-}

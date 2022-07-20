@@ -1,5 +1,0 @@
-{
-    "address": "KM 458.4 BKT LANJAN UTARA, L/RAYA UTARA SELATAN,SG BULOH 47000 SUNGAI BUL",
-    "date": "01/02/2018",
-    "total": "4.90"
-}

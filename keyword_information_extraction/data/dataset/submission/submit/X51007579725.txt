@@ -1,0 +1,6 @@
+{
+    "company": "THONG RECIPE",
+    "date": "27/06/18",
+    "address": "16G BLOCK B ,ZENITH CORPORATE PARK JALAN SS7/26, 47301 PETALING JAYA SELANGOR",
+    "total": "58.70"
+}

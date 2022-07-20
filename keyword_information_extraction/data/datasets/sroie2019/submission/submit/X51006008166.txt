@@ -1,6 +1,0 @@
-{
-    "company": "FLORISM DE ART",
-    "address": "LOT 2.70.00,LEVEL 2, PAVILION KUALA LUMPUR, 168, JALAN BUKIT BINTANG, 55100 KUALA LUMPUR, MALAYSIA.",
-    "date": "14/01/2018",
-    "total": "750.00"
-}

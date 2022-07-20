@@ -13,7 +13,7 @@ __pycache__
 **/.ipynb_checkpoints/
 
 # Ignoring the default events directory.
-*/outputs
+keyword_information_extraction/88_33_recall_outputs
 
 # Editor temporaries
 *.swn

@@ -1,0 +1,6 @@
+{
+    "company": "GOLDEN KEY MAKER",
+    "date": "11-APR-2018",
+    "address": "NO 5, JALAN KENARI 2, BANDAR PUCHONG JAYA, 47100 PUCHONG, SELANGOR",
+    "total": "10.00"
+}

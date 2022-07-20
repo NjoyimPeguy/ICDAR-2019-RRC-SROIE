@@ -1,6 +1,0 @@
-{
-    "company": "HON HWA HARDWARE TRADING",
-    "address": "NO 37, JALAN MANIS 7, TAMAN SEGAR, 56100 CHERAS, KUALA LUMPUR.",
-    "date": "05/01/2017",
-    "total": "5.00"
-}

@@ -1,381 +1,374 @@
 import os
 import sys
-import time
-import torch
-import argparse
-import warnings
-import torch.nn.functional as F
 
 sys.path.append(os.getcwd())
 
-# importing useful function/methods from task 1
-from text_localization.ctpn.utils.logger import create_logger
-from text_localization.ctpn.utils.checkpointer import Checkpointer
-from text_localization.ctpn.data.datasets.dataloader import create_dataloader
-from text_localization.ctpn.utils.misc import AverageMeter, Visualizer, get_process_time
+import gc
+import time
+import torch
+import warnings
+import numpy as np
+
+from options import TrainArgs
+from tabulate import tabulate
+from torch.utils.data import random_split
+
+# importing useful function/methods
+from functional.saving import Checkpointer
+from functional.metric import AverageMeter
+from functional.time import get_process_time
+from functional.data.dataloader import Dataloader
+from functional.visualizer import VisdomVisualizer
+from functional.event_tracker import logger as Logger
 
 from keyword_information_extraction.configs import configs
-from keyword_information_extraction.model.charlm import CharacterLevelCNNHighwayBiLSTM
-from keyword_information_extraction.data.datasets.sroie2019 import SROIE2019Dataset, TrainBatchCollator
-from sklearn.metrics import classification_report, precision_score, recall_score, f1_score, accuracy_score
-
-parser = argparse.ArgumentParser(description="Character-Level for Text Classification")
-
-parser.add_argument("--config-file", action="store", help="The path to the configs file.")
-parser.add_argument("--save-steps", default=0, type=int, metavar="N",
-                    help="After a certain number of epochs, a checkpoint is saved")
-parser.add_argument("--log-steps", default=10, type=int, help="Print logs every log steps")
-parser.add_argument("--resume", action="store",
-                    help="Resume training from a path to the given checkpoint.")
-parser.add_argument("--use-cuda", action="store_true",
-                    help="Enable or disable the CUDA training. By default it is disable.")
-parser.add_argument("--gpu-device", default=0, type=int, help="Specify the GPU ID to use. By default, it is the ID 0")
-parser.add_argument("--use-visdom", action="store_true",
-                    help="Enable or disable visualization during training with Visdom which is "
-                         "a class to visualise data in real time and for each iteration. By default it is disable.")
-
-args = parser.parse_args()
+from keyword_information_extraction.data.dataset import SROIE2019Dataset, TrainBatchCollator
+from keyword_information_extraction.model.charlm import CharacterLevelCNNHighwayBiLSTM as CharLM
+from keyword_information_extraction.utils.misc import multilabel_confusion_matrix, check_denominator_consistency
 
 # Put warnings to silence if any.
 warnings.filterwarnings("ignore")
 
+train_args = TrainArgs(description="Keyword Information Extraction: training")
+parser = train_args.get_parser()
+args, _ = parser.parse_known_args()
+
 
 def main():
-    # A boolean to check whether the user is able to use cuda or not.
-    use_cuda = torch.cuda.is_available() and args.use_cuda
-    
     # One can comment the line below.
     # It is important to note it is useful when some nasty errors like the NaN loss show up.
     torch.autograd.set_detect_anomaly(True)
-    
+
+    # A boolean to check whether the user is able to use cuda or not.
+    use_cuda = torch.cuda.is_available() and args.use_cuda
+
     output_dir = os.path.normpath(configs.OUTPUT_DIR)
     if not os.path.isdir(output_dir):
         os.makedirs(output_dir)
-    
+
     # The declaration and initialization of the logger.
-    logger = create_logger(name="Training phase", output_dir=output_dir, log_filename="training-log")
-    
+    logger = Logger(name="CharLM: training phase", output_dir=output_dir, log_filename="training-log")
+
     # The declaration and initialization of the checkpointer.
-    checkpointer = Checkpointer(output_dir, logger)
-    
-    # The declaration of the dataloader arguments.
-    dataloader_args = dict(configs.DATALOADER.TRAINING)
-    
+    checkpointer = Checkpointer(logger=logger, output_dir=output_dir)
+
+    # The declaration of the training dataloader arguments.
+    training_dataloader_args = dict(configs.DATALOADER.TRAINING)
+
     # Adding the collate_fn.
-    dataloader_args["collate_fn"] = TrainBatchCollator(class_labels_padding_value=configs.MODEL.LOSS.IGNORE_INDEX)
-    
+    training_dataloader_args["collate_fn"] = TrainBatchCollator(class_labels_padding_value=configs.LOSS.IGNORE_INDEX)
+
     # The declaration and tensor type of the CPU/GPU device.
-    device = torch.device("cpu")  # By default, the device is CPU.
     if not use_cuda:
+        device = torch.device("cpu")
         torch.set_default_tensor_type("torch.FloatTensor")
     else:
         device = torch.device("cuda")
         torch.cuda.set_device(args.gpu_device)
         torch.set_default_tensor_type("torch.cuda.FloatTensor")
-        
-        # When one does not care about reproducibility,
-        # this two lines below will find the best algorithm for your GPU.
+
+        # Enabling cuDNN.
         torch.backends.cudnn.enabled = True
-    
-    dataloader_args["generator"] = torch.Generator(device=device)
-    
-    plotter = None
-    if args.use_visdom:
-        logger.info("Initialising the visualiser 'Visdom'")
-        plotter = Visualizer(port=configs.VISDOM.PORT, env_name=configs.VISDOM.ENV_NAME)
-    
-    logger.info("Performing the train-validation dataset split...")
-    class_dict = dict(configs.DATASET.CLASS_NAMES)
-    train_dataset = SROIE2019Dataset(new_dir=dict(configs.DATASET.TRAIN), class_dict=class_dict,
-                                     validation_args={"val_folder": dict(configs.DATASET.VAL), "ratio": 0.1})
-    train_loader = create_dataloader(dataset=train_dataset, is_train=True, **dataloader_args)
-    train_criterion = torch.nn.CrossEntropyLoss(ignore_index=configs.MODEL.LOSS.IGNORE_INDEX, reduction="none")
+
+    training_dataloader_args["generator"] = torch.Generator(device=device)
+
+    labels_classes = dict(configs.DATASET.LABELS_CLASSES)
+
+    labels_classes = dict(sorted(labels_classes.items(), key=lambda item: item[1]))
+
+    train_dataset = SROIE2019Dataset(directory_dict=dict(configs.DATASET.TRAIN), labels_classes=labels_classes)
+
     vocabulary = train_dataset.vocabulary
+
     text_max_length = train_dataset.text_max_length
-    
-    logger.info("Declaration and initialization of the validation dataset")
-    validation_dataset = SROIE2019Dataset(new_dir=dict(configs.DATASET.VAL), class_dict=class_dict)
-    validation_loader = create_dataloader(dataset=validation_dataset, is_train=False, **dataloader_args)
-    validation_criterion = torch.nn.CrossEntropyLoss(ignore_index=configs.MODEL.LOSS.IGNORE_INDEX, reduction="mean")
-    
+
+    class_weights = torch.as_tensor(train_dataset.class_weights.tolist(), device=device, dtype=torch.float32)
+
+    train_criterion = torch.nn.CrossEntropyLoss(weight=class_weights,
+                                                ignore_index=configs.LOSS.IGNORE_INDEX,
+                                                reduction="mean").to(device, non_blocking=True)
+
+    training_dataloader_args["pin_memory"] = training_dataloader_args["pin_memory"] and use_cuda
+    train_loader = Dataloader(dataset=train_dataset, is_train=True, **training_dataloader_args)
+
     logger.info("Declaration and initialization of the model and optimizer...")
-    model_params = dict(configs.MODEL.PARAMS)
-    vocab_size = len(vocabulary)
-    model = CharacterLevelCNNHighwayBiLSTM(n_classes=configs.DATASET.NUM_CLASSES,
-                                           max_seq_length=text_max_length,
-                                           char_vocab_size=vocab_size, **model_params)
-    model = model.to(device)
-    
-    optimizer = torch.optim.AdamW(model.parameters(),
-                                  lr=configs.SOLVER.LR,
-                                  weight_decay=configs.SOLVER.WEIGHT_DECAY,
-                                  amsgrad=configs.SOLVER.AMSGRAD)
-    
+    model_args = dict(configs.MODEL.ARGS)
+    model = CharLM(n_classes=configs.DATASET.NUM_CLASSES,
+                   max_seq_length=text_max_length,
+                   char_vocab_size=len(vocabulary),
+                   **model_args).to(device, non_blocking=True)
+
+    logger.info("Declaration and initialization of the optimizer...")
+    optimizer_args = dict(configs.SOLVER.ADAM.ARGS)
+    optimizer = torch.optim.Adam(params=model.parameters(), **optimizer_args)
+
     logger.info("Declaration and initialization of the learning rate scheduler...")
-    lr_scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer=optimizer,
-                                                        milestones=configs.SOLVER.LR_DECAY_STEPS,
-                                                        gamma=configs.SOLVER.GAMMA)
-    
+    lr_scheduler_args = dict(configs.SOLVER.SCHEDULER.ARGS)
+    lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer=optimizer, **lr_scheduler_args)
+
     start_epoch = 1
+    max_epochs = configs.SOLVER.MAX_EPOCHS
     checkpoint_data = {}
-    best_validation_f1_score = total_loss_plotter_window = None
-    
+    last_elapsed_time = 0.0
+    plotter = total_loss_plotter_window = None
+
     if args.resume is not None:
-        
+
         logger.info("Resuming the training...")
-        
+
         checkpoint_data = checkpointer.load(file_to_load=args.resume, map_location=device)
-        
-        start_epoch = checkpoint_data["epoch"]
-        
+
+        start_epoch = checkpoint_data.get("epoch", 1)
+
+        last_elapsed_time = checkpoint_data.get("elapsed_time", 0.0)
+
         total_loss_plotter_window = checkpoint_data.get("total_loss_plot_win")
-        best_validation_f1_score = checkpoint_data.get("best_validation_f1_score")
-        
+
         optimizer_state_dict = checkpoint_data.get("optimizer_state_dict")
         if optimizer_state_dict is not None:
             optimizer.load_state_dict(optimizer_state_dict)
-        
+
+        # Loading the learning rate scheduler state dict..
+        lr_scheduler_state_dict = checkpoint_data.get("lr_scheduler_state_dict")
+        if lr_scheduler_state_dict is not None:
+            lr_scheduler.load_state_dict(lr_scheduler_state_dict)
+
         model_state_dict = checkpoint_data.get("model_state_dict")
         if model_state_dict is not None:
             model.load_state_dict(model_state_dict)
-    
-    # Creating a plotter window in visdom environment.
+
+        # Loading the loss/criterion...
+        train_loss = checkpoint_data.get("train_criterion")
+        if train_loss is not None:
+            train_criterion = loss
+
+    if args.use_visdom:
+        logger.info("Initialising the visualiser 'Visdom'")
+        plotter = VisdomVisualizer(port=configs.VISDOM.PORT, env_name=configs.VISDOM.ENV_NAME)
+
     if plotter is not None and total_loss_plotter_window is None:
         logger.info("Plot creations...")
-        title_name = "Training: Character Level CNN + Highway + BiLSTM"
+        title_name = "Character Level CNN + Highway + BiLSTM: training"
         legend_names = ["Training loss"]
-        if validation_loader is not None:
-            legend_names.append("Validation loss")
         total_loss_plotter_window = plotter.createPlot(xLabel="Epochs", yLabel="Loss",
                                                        legend_names=legend_names, title_name=title_name)
-    
+
     logger.info("About to start the training...")
-    
-    if best_validation_f1_score is None:
-        best_validation_f1_score = 0.0
-    
-    accumulated_epoch = 0
-    
-    training_start_time = time.time()
-    
-    for current_epoch in range(start_epoch, configs.SOLVER.MAX_EPOCHS + 1):
-        
+
+    # Force the garbage collector to run.
+    gc.collect()
+
+    if use_cuda:
+        # Before starting the training, all the unoccupied cached memory are released.
+        torch.cuda.empty_cache()
+
+        # waits for all tasks in the GPU to complete.
+        torch.cuda.current_stream(device).synchronize()
+
+    # Starting time.
+    start_time = time.time()
+
+    for current_epoch in range(start_epoch, max_epochs + 1):
+
         training_loss = train(model=model, optimizer=optimizer, train_loader=train_loader,
-                              criterion=train_criterion, device=device, current_epoch=current_epoch,
-                              logger=logger)
-        
-        logger.info("[TRAINING] Total loss: {total_loss:.6f}\n\n".format(total_loss=training_loss))
-        
-        logger.info("Validation ongoing...")
-        if use_cuda:
-            torch.cuda.empty_cache()  # speed up evaluation after k-epoch training has just finished.
-        validation_f1_score, validation_loss = validate(model=model, validation_loader=validation_loader,
-                                                        criterion=validation_criterion, device=device,
-                                                        current_epoch=current_epoch, logger=logger)
-        # One can save the best models based on the highest F1-score.
-        if validation_f1_score > best_validation_f1_score:
-            best_validation_f1_score = validation_f1_score
-            checkpoint_data.update({"best_validation_f1_score": best_validation_f1_score})
-            checkpointer.save(name="BEST_MODEL_BASED_ON_F1_SCORE", is_best=True, data=checkpoint_data)
-        
-        # Saving the learning rate scheduler.
+                              criterion=train_criterion, device=device, logger=logger,
+                              current_epoch=current_epoch, max_epochs=max_epochs,
+                              entities_names=list(labels_classes.keys()))
+
+        # Update the learning rate.
         lr_scheduler.step(current_epoch)
-        checkpoint_data.update({"lr_scheduler_state_dict": lr_scheduler.state_dict()})
-        
-        # Updating the plot if it was previously set (i.e., the plotter is not None)
-        if plotter is not None:
-            total_loss_data_y = [training_loss]
-            if validation_loss is not None:
-                total_loss_data_y.append(validation_loss)
-            plotter.update_plot(window=total_loss_plotter_window, data_x=current_epoch, data_y=total_loss_data_y)
-            checkpoint_data.update({"total_loss_plot_win": total_loss_plotter_window})
-        
-        # Saving useful data.
+
+        if use_cuda:
+            # waits for all tasks in the GPU to complete
+            torch.cuda.current_stream(device).synchronize()
+
+        elapsed_time = last_elapsed_time + (time.time() - start_time)
+
+        remaining_time, estimated_finish_time = get_process_time(start_time=start_time,
+                                                                 elapsed_time=elapsed_time,
+                                                                 current_epoch=current_epoch,
+                                                                 max_epochs=max_epochs)
+
+        logger.info("Elapsed time: {et} seconds || "
+                    "Remaining time: {lt} seconds || "
+                    "ETA: {eta}\n".format(
+            et=elapsed_time,
+            lt=remaining_time,
+            eta=estimated_finish_time
+        ))
+
+        # Updating important data.
         checkpoint_data.update({
             "epoch": current_epoch + 1,
+            "elapsed_time": elapsed_time,
             "model_state_dict": model.state_dict(),
-            "optimizer_state_dict": optimizer.state_dict()
+            "optimizer_state_dict": optimizer.state_dict(),
+            "lr_scheduler_state_dict": lr_scheduler.state_dict()
         })
-        
-        if current_epoch > 0 and args.save_steps > 0 and current_epoch % args.save_steps == 0:
-            
-            logger.info("Saving a checkpoint at epoch {0}...".format(current_epoch))
-            
-            checkpointer.save(name="{0}_{1}_CHECKPOINT_EPOCH_{2}".format(
-                configs.MODEL.NAME.upper(),
-                configs.DATASET.NAME.upper(),
-                current_epoch),
-                data=checkpoint_data
-            )
-            
+
+        # Updating the plot if it was previously set (i.e., the plotter is not None)
+        if plotter is not None and \
+                current_epoch > 0 and \
+                args.plot_steps is not None and \
+                args.plot_steps > 0 and \
+                current_epoch % args.plot_steps == 0:
+            total_loss_data_y = [training_loss]
+            plotter.update_plot(window=total_loss_plotter_window, data_x=current_epoch, data_y=total_loss_data_y)
+            checkpoint_data.update({"total_loss_plot_win": total_loss_plotter_window})
+
+        if current_epoch > 0 and \
+                args.save_steps is not None and \
+                args.save_steps > 0 and \
+                current_epoch % args.save_steps == 0 and \
+                current_epoch != max_epochs:
+
+            logger.info("Saving a checkpoint at epoch {0}...\n".format(current_epoch))
+
+            checkpointer.save(name="CHARLM_CHECKPOINT_EPOCH_{0}".format(current_epoch), data=checkpoint_data)
+
             # Saving plots...
             if plotter is not None:
                 plotter.save()
-        
-        # Computing time...
-        accumulated_epoch += 1
-        elapsed_time, left_time, estimated_finish_time = get_process_time(start_time=training_start_time,
-                                                                          current_iteration=accumulated_epoch,
-                                                                          max_iterations=configs.SOLVER.MAX_EPOCHS)
-        logger.info("Elapsed time: {et} seconds || "
-                    "Remaining time: {lt} seconds || "
-                    "ETA: {eta}\n\n".format(
-            et=elapsed_time,
-            lt=left_time,
-            eta=estimated_finish_time
-        ))
-    
-    logger.info("Training has just finished. Saving the final checkpoint...")
-    checkpointer.save(name="{0}_FINAL_CHECKPOINT".format(
-        configs.MODEL.NAME.upper()),
-        data=checkpoint_data
-    )
-    
+
+    logger.info("Training has just finished. Saving the final checkpoint...\n")
+    checkpointer.save(name="CHARLM_FINAL_CHECKPOINT", data=checkpoint_data)
+
     if use_cuda:
+        # Just in case, we release all the unoccupied cached memory after training.
         torch.cuda.empty_cache()
 
 
-def train(model: torch.nn.Module, optimizer, train_loader,
-          criterion: torch.nn.Module, device: torch.device,
-          current_epoch: int, logger):
+def train(model: torch.nn.Module,
+          optimizer: torch.optim.Optimizer,
+          train_loader: torch.utils.data.DataLoader,
+          criterion: torch.nn.Module,
+          device: torch.device,
+          current_epoch: int,
+          max_epochs: int,
+          logger: Logger,
+          entities_names: list):
+    true_classes = []
+
+    predicted_classes = []
+
     training_losses = AverageMeter(fmt=":.6f")
-    
-    # Activating Dropout layer if any...
+
     model = model.train()
-    
+
     for current_iteration, batch_samples in enumerate(train_loader):
-        
-        text_features, text_class_labels, class_weights = batch_samples
-        
-        text_features = text_features.to(device)
-        text_class_labels = text_class_labels.to(device)
-        
+
+        text_features, text_class_labels = batch_samples
+
+        text_features = text_features.to(device, non_blocking=True)
+
+        text_class_labels = text_class_labels.to(device, non_blocking=True)
+
         # Clearing out the model's gradients before doing backprop.
         # 'set_to_none=True' here can modestly improve performance
         optimizer.zero_grad(set_to_none=True)
-        
-        predictions = model(text_features)
-        
-        class_weights = class_weights.contiguous().view(-1)
-        
-        text_class_labels = text_class_labels.contiguous().view(-1)
-        
-        predictions = predictions.contiguous().view(-1, configs.DATASET.NUM_CLASSES)
-        
-        loss = (class_weights * criterion(predictions, text_class_labels)).mean()
-        
+
+        outputs = model(text_features)
+
+        inputs = outputs.contiguous().view(-1, configs.DATASET.NUM_CLASSES)
+
+        targets = text_class_labels.contiguous().view(-1)
+
+        loss = criterion(inputs, targets)
+
         loss.backward()
-        
-        torch.nn.utils.clip_grad_norm_(parameters=model.parameters(), max_norm=5.0, norm_type=2.0)
-        
+
         optimizer.step()
-        
+
         # Calling ".item()" operation requires synchronization. For further info, check this out:
         # https://pytorch.org/tutorials/recipes/recipes/tuning_guide.html And this as well:
         # https://stackoverflow.com/questions/56816241/difference-between-detach-and-with-torch-nograd-in-pytorch
         # Just in case of in-place operations, one can add .clone() to avoid nasty modifications...
         training_losses.update(loss.detach().clone(), n=text_features.size(0))
-        
-        if current_iteration > 0 and args.log_steps > 0 and current_iteration % args.log_steps == 0:
+
+        with torch.no_grad():
+
+            _, predictions = torch.max(torch.softmax(outputs, dim=2), dim=2)
+
+            predicted_classes.extend(predictions.contiguous().view(-1).tolist())
+
+            true_classes.extend(text_class_labels.contiguous().view(-1).tolist())
+
+        if current_iteration > 0 and args.log_steps is not None and \
+                args.log_steps > 0 and current_iteration % args.log_steps == 0:
             logger.info("Epoch: {curr_epoch}/{maximum_epochs} || "
-                        "Iterations: {iter} || "
-                        "Learning_rate: {lr} || "
-                        "Loss: {loss}\n\n".format(
+                        "Iteration: {iter} || "
+                        "Learning rate: {lr} || "
+                        "Loss: {loss}\n".format(
                 curr_epoch=current_epoch,
-                maximum_epochs=configs.SOLVER.MAX_EPOCHS,
+                maximum_epochs=max_epochs,
                 iter=current_iteration,
                 lr=optimizer.param_groups[0]["lr"],
                 loss=training_losses
             ))
-    return training_losses.global_avg
 
+    n_classes = configs.DATASET.NUM_CLASSES
+    MCM = multilabel_confusion_matrix(inputs=predicted_classes, targets=true_classes, n_classes=n_classes)
 
-@torch.no_grad()
-def validate(model: torch.nn.Module, validation_loader,
-             criterion: torch.nn.Module, device: torch.device,
-             current_epoch: int, logger):
-    validation_losses = AverageMeter(fmt=":.6f")
-    
-    # Disabling Dropout layer if any...
-    model = model.eval()
-    
-    true_classes = []
-    predicted_classes = []
-    
-    for current_iteration, batch_samples in enumerate(validation_loader):
-        
-        text_features, text_class_labels, class_weights = batch_samples
-        
-        # Putting into the right device...
-        text_features = text_features.to(device)
-        text_class_labels = text_class_labels.to(device)
-        
-        text_class_labels = text_class_labels.view(-1)
-        
-        outputs = model(text_features)
-        
-        loss = criterion(outputs.view(-1, configs.DATASET.NUM_CLASSES), text_class_labels)
-        
-        validation_losses.update(loss.detach().cpu().numpy(), text_features.size(0))
-        idx = torch.where(text_class_labels == configs.MODEL.LOSS.IGNORE_INDEX)[0]
-        text_class_labels[idx] = 0
-        true_classes.extend(text_class_labels.detach().cpu().numpy())
-        
-        _, predictions = torch.max(F.softmax(outputs, dim=2), dim=2)
-        predictions = predictions.contiguous().view(-1)
-        predicted_classes.extend(predictions.detach().cpu().numpy())
-        
-        if current_iteration > 0 and args.log_steps > 0 and current_iteration % args.log_steps == 0:
-            logger.info("Epoch: {curr_epoch}/{maximum_epochs} || "
-                        "Iteration: {iter} || "
-                        "Loss: {loss}\n\n".format(
-                curr_epoch=current_epoch,
-                maximum_epochs=configs.SOLVER.MAX_EPOCHS,
-                iter=current_iteration,
-                loss=validation_losses
-            ))
-    
-    validation_loss = validation_losses.global_avg
-    validation_f1_score = f1_score(true_classes, predicted_classes, average="weighted")
-    results = {
-        "loss": validation_loss,
-        "precision": precision_score(true_classes, predicted_classes, average="weighted"),
-        "recall": recall_score(true_classes, predicted_classes, average="weighted"),
-        "f1": validation_f1_score
-    }
-    
-    report = classification_report(true_classes, predicted_classes)
-    logger.info("\n" + report)
-    
-    logger.info("***** Validation results ******")
-    for key in sorted(results.keys()):
-        logger.info("  %s = %s", key, str(results[key]))
-    
-    return validation_f1_score, validation_loss
+    TPc = MCM[:, 1, 1]
+
+    FPc = MCM[:, 0, 1]
+
+    FNc = MCM[:, 1, 0]
+
+    precision_denominator = check_denominator_consistency(TPc + FPc)
+    precision = np.expand_dims(TPc / precision_denominator, axis=0).T
+
+    recall_denominator = check_denominator_consistency(TPc + FNc)
+    recall = np.expand_dims(TPc / recall_denominator, axis=0).T
+
+    f1_denominator = check_denominator_consistency(precision + recall)
+    f1_Score = 2.0 * ((precision * recall) / f1_denominator)
+
+    data_list = np.concatenate([recall, precision, f1_Score], axis=1)
+
+    grid_data_list = [] + configs.TABULATE.DATA_LIST
+    for i, data in enumerate(data_list):
+        rec = data[1]
+        prec = data[0]
+        hmean = data[2]
+        grid_data_list.append([entities_names[i], rec, prec, hmean])
+
+    training_loss = training_losses.global_avg
+
+    logger.info("Training loss = {0}\n".format(training_loss))
+
+    logger.info("Results:\n" + tabulate(grid_data_list, headers="firstrow", tablefmt="grid"))
+
+    return training_loss
 
 
 if __name__ == '__main__':
-    
+
     # Guarding against bad arguments.
-    
-    if args.save_steps < 0:
+
+    if args.save_steps is not None and args.save_steps <= 0:
         raise ValueError("{0} is an invalid value for the argument: --save-steps".format(args.save_steps))
-    elif args.log_steps < 0:
+    elif args.log_steps is not None and args.log_steps <= 0:
         raise ValueError("{0} is an invalid value for the argument: --log-steps".format(args.log_steps))
+    elif args.plot_steps is not None and args.plot_steps <= 0:
+        raise ValueError("{0} is an invalid value for the argument: --plot-steps".format(args.plot_steps))
     elif args.resume is not None and not os.path.isfile(args.resume):
-        raise ValueError("The path to the checkpoint data file is wrong!")
-    
+        raise ValueError("The path to the checkpoint data path_to_file is wrong!")
+
     gpu_devices = list(range(torch.cuda.device_count()))
     if len(gpu_devices) != 0 and args.gpu_device not in gpu_devices:
-        raise ValueError("Your GPU ID is out of the range! You may want to check with 'nvidia-smi'")
-    elif args.use_cuda and not torch.cuda.is_available():
+        raise ValueError("Your GPU ID is out of the range! "
+                         "You may want to check it with 'nvidia-smi' or "
+                         "'Task Manager' for Windows users.")
+
+    if args.use_cuda and not torch.cuda.is_available():
         raise ValueError("The argument --use-cuda is specified but it seems you cannot use CUDA!")
-    
+
     if args.config_file is not None:
         if not os.path.isfile(args.config_file):
             raise ValueError("The configs file is wrong!")
         else:
             configs.merge_from_file(args.config_file)
     configs.freeze()
-    
+
     main()

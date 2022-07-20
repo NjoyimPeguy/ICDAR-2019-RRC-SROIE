@@ -1,1 +1,1 @@
-from text_localization.ctpn.model.architecture import CTPN
+from .architecture import CTPN

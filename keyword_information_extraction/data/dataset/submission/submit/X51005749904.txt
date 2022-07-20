@@ -1,0 +1,6 @@
+{
+    "company": "SWC ENTERPRISE SDN BHD",
+    "date": "06/03/2018",
+    "address": "28-G, GROUND FLOOR, JALAN DINAR A U3/A, TMN SUBANG PERDANA, 40150 SHAN ALAM, SELANGOR.",
+    "total": "4.00"
+}

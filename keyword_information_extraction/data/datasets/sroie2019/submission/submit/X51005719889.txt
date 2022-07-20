@@ -1,6 +1,0 @@
-{
-    "company": "HENG KEE DELIGHTS BAK KUT TEH.",
-    "address": "NO31 , JALAN 3/62A , BANDAR MENJALARA KEPONG. 52100 KUALA LUMPUR",
-    "date": "04/01/2018",
-    "total": "42.00"
-}

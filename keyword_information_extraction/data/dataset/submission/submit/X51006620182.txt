@@ -1,0 +1,6 @@
+{
+    "company": "PACIFIC ASIAN FOOD DELIGHTS S/B",
+    "date": "08/05/2016",
+    "address": "NO.35,GROUND FLOOR JLN METRO PERDANA BARAT 1 TAMAN USAHAWAN KEPONG 52100 KL",
+    "total": "16.90"
+}

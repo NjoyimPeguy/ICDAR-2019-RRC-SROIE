@@ -1,0 +1,6 @@
+{
+    "company": "RESTAURANT JIAWEI JIAWEI HOUSE",
+    "date": "23/2/2018",
+    "address": "13, JLN TASIK UTAMA 8 MEDAN NIAGA DAMAI SG BESI",
+    "total": "110.00"
+}

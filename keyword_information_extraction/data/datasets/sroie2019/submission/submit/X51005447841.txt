@@ -1,6 +1,0 @@
-{
-    "company": "PASARAYA BORONG PINTAR SDN BHD",
-    "address": "NO 19-G& 19-1& 19-2 JALAN TASIK UTAMA 4, MEDAN NIAGA TASIK DAMAI",
-    "date": "09/03/2018",
-    "total": "10.40"
-}

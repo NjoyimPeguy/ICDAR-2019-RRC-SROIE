@@ -1,0 +1,6 @@
+{
+    "company": "CHA FOR TEA",
+    "date": "19/04/2018",
+    "address": "1-1, CENTRAL PARK , JALAN PJU5/13, DATARAN SUNWAY, 47810 KOTA DAMANSARA, SELANGOR",
+    "total": "RM46.25"
+}

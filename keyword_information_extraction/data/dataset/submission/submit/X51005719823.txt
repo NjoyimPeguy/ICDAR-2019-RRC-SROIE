@@ -1,0 +1,6 @@
+{
+    "company": "AA PHARMACY",
+    "date": "29/01/2018",
+    "address": "NO.47, JALAN 3/36, BUKIT SRI BINTANG, KEPONG 52100, KUALA LUMPUR",
+    "total": "46.20"
+}

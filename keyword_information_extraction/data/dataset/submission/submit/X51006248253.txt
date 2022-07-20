@@ -1,0 +1,6 @@
+{
+    "company": "DREAM ARTS",
+    "date": "29/03/2018",
+    "address": "L 2-047, LEVEL 2, VIVACITY MEGAMALL, JALAN WAN ALWI, 93350 KUCHING",
+    "total": "15.00"
+}

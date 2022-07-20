@@ -1,0 +1,6 @@
+{
+    "company": "RESTORAN HOETIM",
+    "date": "28/05/2018",
+    "address": "1-G,JALAN OS 1/3,ONE SELAYANG OFF JALAN RAWANG 68100 B.CAVES",
+    "total": "RM83.00"
+}

@@ -1,6 +1,0 @@
-{
-    "company": "99 SPEED MART S/B",
-    "address": "LOT P.T. 2811, JALAN ANGSA, TAMAN BERKELEY 41150 KLANG, SELANGOR 1572-TMN BKT PANDAN",
-    "date": "10-03-18",
-    "total": "5.35"
-}

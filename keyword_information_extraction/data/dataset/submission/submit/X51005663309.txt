@@ -1,0 +1,6 @@
+{
+    "company": "KOH SENG HARDWARE",
+    "date": "01/02/2018",
+    "address": "NO. 939, BATU LIMA, JALAN IPOH, 51200 KUALA LUMPUR.",
+    "total": "5.30"
+}

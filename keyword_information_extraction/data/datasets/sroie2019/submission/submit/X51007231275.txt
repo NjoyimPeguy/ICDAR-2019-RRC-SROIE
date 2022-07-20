@@ -1,6 +1,0 @@
-{
-    "company": "UNIHAKKA INTERNATIONAL SDN BHD",
-    "address": "12, JALAN TAMPOI 7/4,KAWASAN PERINDUSTRIAN TAMPOI,81200 JOHOR BAHRU,JOHOR",
-    "date": "12 MAY 2018",
-    "total": "$6.60"
-}

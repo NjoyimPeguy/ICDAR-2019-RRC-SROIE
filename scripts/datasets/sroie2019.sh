@@ -19,8 +19,8 @@ else
   cd "$1" || exit
 fi
 
-echo "Downloading the Scanned receipt dataset..."
-curl -L "https://github.com/BlackStar1313/ICDAR-2019-RRC-SROIE/releases/download/v1.0/SROIE2019.zip" -o SROIE2019.zip
+echo "Downloading the scanned receipt dataset..."
+curl -L "https://onedrive.live.com/download?cid=F92258CB69AAABE1&resid=F92258CB69AAABE1%21103844&authkey=AFR084g1sRQcn2o" -o SROIE2019.zip
 echo "Done downloading."
 
 # Extract data

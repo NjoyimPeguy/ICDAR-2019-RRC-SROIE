@@ -1,6 +1,0 @@
-{
-    "company": "FY EAGLE ENTERPRISE",
-    "address": "NO. 42, JALAN PBS 14/11, TAMAN PERINDUSTRIAN BUKIT SERDANG, 43300 SERI KEMBANGAN, SELANGOR",
-    "date": "07/12/2017",
-    "total": "10.00"
-}

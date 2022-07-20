@@ -1,6 +1,0 @@
-{
-    "company": "99 SPEED MART S/B",
-    "address": "LOT P.T. 33198, BATU 4 JALAN KAPAR, MUKIM KAPAR 42100 KLANG, SELANGOR 1605-TMN SRI BINTANG",
-    "date": "13-01-16",
-    "total": "71.60"
-}

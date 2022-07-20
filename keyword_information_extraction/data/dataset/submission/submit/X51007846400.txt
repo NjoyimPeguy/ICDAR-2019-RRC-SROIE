@@ -1,0 +1,6 @@
+{
+    "company": "KOREAN DINE SDN BHD",
+    "date": "19/06/2018",
+    "address": "NO 4, JALAN PERMAS 10/5. BANDAR BARU PERMAS JAYA, 81750 JOHOR BAHRU, JOHOR.",
+    "total": "152.90"
+}

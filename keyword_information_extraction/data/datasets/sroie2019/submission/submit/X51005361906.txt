@@ -1,6 +1,0 @@
-{
-    "company": "TED HENG STATIONERY & BOOKS",
-    "address": "NO. 53, JALAN BESAR, 45600 BATANG BERJUNTAI SELANGOR DARUL EHSAN",
-    "date": "27/01/2018",
-    "total": "27.35"
-}

@@ -1,6 +1,0 @@
-{
-    "company": "GUARDIAN HEALTH AND BEAUTY SDN BHD",
-    "address": "SOLARIS MOUNT KIARA NO.8 & 10, GF SOLARIS MOUNT KUARA JLN SOLARIS 5",
-    "date": "01/01/18",
-    "total": "22.45"
-}

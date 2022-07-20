@@ -1,6 +1,0 @@
-{
-    "company": "TEO HENG STATIONERY & BOOKS",
-    "address": "NO. 53, JALAN BESAR, 45600 BATANG BERJUNTAI SELANGOR DARUL EHSAN",
-    "date": "29/01/2018",
-    "total": "1.05"
-}

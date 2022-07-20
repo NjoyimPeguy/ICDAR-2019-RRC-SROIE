@@ -1,0 +1,6 @@
+{
+    "company": "ECONSAVE CASH & CARRY (FC) S/B",
+    "date": "22/03/18",
+    "address": "LOT GO1, KL FESTIVAL CITY, NO. 67 JIN IBU KOTA TMN DANAU KOTA, KL",
+    "total": "5.15"
+}

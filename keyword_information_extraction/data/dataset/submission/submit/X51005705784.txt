@@ -1,0 +1,6 @@
+{
+    "company": "KEDAI BUKU NEW ACHEIVERS",
+    "date": "15/09/2017",
+    "address": "NO. 12 & 14, JALAN JINJANG 27/54 TAMAN ALAM MEGAH, SEKSYEN 27 40400 SHAH ALAM, SELANGOR D. E.",
+    "total": "48.00"
+}

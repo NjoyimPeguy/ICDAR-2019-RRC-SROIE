@@ -1,0 +1,6 @@
+{
+    "company": "PETRON BKT LANJAN SB ALSERKAM ENTERPRISE",
+    "date": "01/02/2018",
+    "address": "KM 458.4 BKT LANJAN UTARA, L/RAYA UTARA SELATAN,SG BULOH 47000 SUNGAI BUL",
+    "total": "4.90"
+}

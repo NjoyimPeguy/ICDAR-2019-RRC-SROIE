@@ -1,6 +1,0 @@
-{
-    "company": "SEGI CASH & CARRY SDN. BHD.",
-    "address": "PT17920 SEK U9, SHAH ALAM",
-    "date": "06 JAN 2018",
-    "total": "674.00"
-}

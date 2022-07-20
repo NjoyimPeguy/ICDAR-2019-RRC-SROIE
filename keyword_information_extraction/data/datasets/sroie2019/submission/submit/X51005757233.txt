@@ -1,6 +1,0 @@
-{
-    "company": "GUARDIAN HEALTH AND BEAUTY SDN BHD",
-    "address": "G31 & G32, GRD FLR, IOI MALL BANDAR PUCHONG JAYA",
-    "date": "09/03/18",
-    "total": "9.95"
-}

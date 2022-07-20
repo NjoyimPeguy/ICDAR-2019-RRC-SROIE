@@ -1,0 +1,6 @@
+{
+    "company": "NSK TRADE CITY-SELAYANG",
+    "date": "27-10-2017",
+    "address": "LOT 4674 & 4675 SELAYANG BATU 8 JALAN IPOH 68100 BATU CAVES",
+    "total": "RM9.00"
+}

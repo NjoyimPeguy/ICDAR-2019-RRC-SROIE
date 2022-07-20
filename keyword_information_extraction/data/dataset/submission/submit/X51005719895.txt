@@ -1,0 +1,6 @@
+{
+    "company": "GREEN LANE PHARMACY SDN BHD",
+    "date": "1/8/2018",
+    "address": "33 JLN BANGAU 1,KEPONG BARU, 52100 KEPONG,KL",
+    "total": "34.80"
+}

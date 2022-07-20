@@ -1,6 +1,0 @@
-{
-    "company": "PASAR MINI JIN SENG",
-    "address": "379, JALAN PERMAS SATU, BANDAR BARU PERMAS JAYA 81750 PLENTONG, JOHOR.",
-    "date": "03/03/18",
-    "total": "33.80"
-}

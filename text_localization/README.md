@@ -29,7 +29,7 @@ This task is difficult since scanned receipts have a lot of variations and are s
 
 ## Crop preprocessing steps <a name="crop-preprocessing-steps"/>
 
-Before running the training, the [crop preprocessing](../scripts/sroie2019/preprocessing/split_labels.py) (starts at
+Before running the training, the [crop preprocessing](../functional/data/preprocessing/split_labels.py) (starts at
 line 99) method is applied if it was not done the very first time. This method first convert the image to gray scale.
 Then gradient is obtained with the Sobel operator which will be used to do the Otsu's binarization. The outline of the
 scanned receipt area is decided by morphological transformations with the rectangle kernel.

@@ -1,1 +1,1 @@
-from .generate_sroie_data import generate_csv_for_training, generate_csv_for_evaluation
+from .generate_data import generate_csv_for_training, generate_csv_for_evaluation

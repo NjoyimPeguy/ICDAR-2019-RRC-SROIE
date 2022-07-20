@@ -1,6 +1,0 @@
-{
-    "company": "BOOK TALK (MUTIARA RINI) SDN BHD",
-    "address": "NO. 53 & 55, JALAN UTAMA 34, MUTIARA RINI, SKUDAI, JOHOR.",
-    "date": "21/6/2018",
-    "total": "9.30"
-}

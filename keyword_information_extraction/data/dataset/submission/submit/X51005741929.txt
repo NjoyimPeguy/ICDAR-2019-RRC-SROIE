@@ -1,0 +1,6 @@
+{
+    "company": "MYMYDIN SUBANG BESTARI 2300 MY MYDIN SDN BHD",
+    "date": "15/01/2018",
+    "address": "NO 13, 15, 17 & 19 JALAN NOVA Q U5/Q, SEKSYEN U5, SUBANG BESTARI 40150 SHAH ALA SELANGOR DARUL EHSAN",
+    "total": "5.50"
+}

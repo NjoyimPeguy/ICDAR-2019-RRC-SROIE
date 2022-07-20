@@ -1,5 +1,0 @@
-{
-    "company": "PU TIEN (M) SDN BHD",
-    "date": "12/10/2017",
-    "total": "RM36.95"
-}

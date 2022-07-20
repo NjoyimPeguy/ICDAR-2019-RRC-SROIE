@@ -1,0 +1,6 @@
+{
+    "company": "OJC MARKETING SDN BHD",
+    "date": "02/01/2019",
+    "address": "NO 2 & 4, JALAN BAYU 4, BANDAR SERI ALAM, 81750 MASAI, JOHOR",
+    "total": "170.00"
+}

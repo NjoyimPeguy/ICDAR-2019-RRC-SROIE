@@ -1,0 +1,6 @@
+{
+    "company": "RESTORAN HWA MUI SUTERA SDN BHD",
+    "date": "29/04/2018",
+    "address": "50,JALAN SUTERA TANJUNG 5/4 TAMAN SUTERA UTAMA, 81300 SKUDAI ,JOHOR",
+    "total": "91.50"
+}

@@ -1,0 +1,6 @@
+{
+    "company": "YHM MID VALLEY",
+    "date": "15/12/2017",
+    "address": "LOT T-015B, LEVEL 3, MID VALLEY CITY, LINGKARAN SYED PUTRA, 59200 KUALA LUMPUR MALAYSIA.",
+    "total": "21.60"
+}

@@ -1,6 +1,0 @@
-{
-    "company": "YONG TAT HARDWARE TRADING",
-    "address": "NO 4,JALAN PERJIRANAN 10, TAMAN AIR BIRU, 81700 PASIR GUDANG, JOHOR.",
-    "date": "13/03/2018",
-    "total": "72.00"
-}

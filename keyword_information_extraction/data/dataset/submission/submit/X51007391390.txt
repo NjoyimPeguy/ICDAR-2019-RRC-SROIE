@@ -1,0 +1,6 @@
+{
+    "company": "SUPER NINETY NINE SDN.BHD.",
+    "date": "31/05/2018",
+    "address": "NO.3343, GROUND FLOOR, JALAN 18/32, TAMAN SRI SERDANG, 43300 SERI KEMBANGAN,",
+    "total": "3.00"
+}

@@ -1,0 +1,6 @@
+{
+    "company": "KEDA PAPAN YEW CHJAN",
+    "date": "08/03/2018",
+    "address": "LOT 276 JALAN BANTING 800 DEN SELANGOR.",
+    "total": "312.70"
+}

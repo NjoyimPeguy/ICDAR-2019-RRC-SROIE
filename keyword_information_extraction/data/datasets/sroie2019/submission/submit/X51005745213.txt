@@ -1,6 +1,0 @@
-{
-    "company": "MUN HENG ELECTRICAL & HARDWARE SUPPLY",
-    "address": "NO.52, JALAN BULAN U5/BT, BANDAR PINGGLRAN SUBANG, SUNGAL BULOH, 40150 SHAH ALAM, SEL.",
-    "date": "01/02/2018",
-    "total": "7.00"
-}

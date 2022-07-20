@@ -1,0 +1,6 @@
+{
+    "company": "F&P PHARMACY",
+    "date": "02/03/2018",
+    "address": "NO.20. GROUND FLOOR, JALAN BS 10/6 TAMAN BUKIT SERDANG, SEKSYEN 10, 43300 SERI KEMBANGAN. SELANGOR DARUL EHSAN",
+    "total": "31.90"
+}

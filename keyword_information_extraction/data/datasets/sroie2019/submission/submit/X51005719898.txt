@@ -1,5 +1,0 @@
-{
-    "address": "LOT 1851-A & 1851-B, JALAN KPB 6, KAWASAN PERINDUSTRIAN BALAKONG, 43300 SERI KEMBANGAN, SELANGOR",
-    "date": "19-03-18",
-    "total": "11.90"
-}

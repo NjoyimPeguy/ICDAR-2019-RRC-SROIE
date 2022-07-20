@@ -1,5 +1,0 @@
-{
-    "company": "KECHARA OASIS VEGETARIAN RESTAURANT S/B",
-    "date": "15/05/18",
-    "total": "64.50"
-}
