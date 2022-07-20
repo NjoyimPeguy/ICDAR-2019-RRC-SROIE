@@ -1,0 +1,6 @@
+{
+    "company": "KING'S CONFECTIONERY S/B",
+    "date": "23/02/17",
+    "address": "NO. 20-A1, JALAN SS6/3, KELANA JAYA,",
+    "total": "7.20"
+}

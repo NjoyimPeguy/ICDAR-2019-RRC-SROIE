@@ -1,6 +1,0 @@
-{
-    "company": "JUWITA WEDDINGS (",
-    "address": "LOT G18 & G19, JLN 8/27A WANGSA MAJU (AEON BIG SHOPPING CENTER) 53300 KUALA LUMPUR",
-    "date": "28-FEB-2018",
-    "total": "4.10"
-}

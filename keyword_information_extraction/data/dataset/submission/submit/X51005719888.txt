@@ -1,0 +1,6 @@
+{
+    "company": "POTTERS GARDEN SDN BHD",
+    "date": "04/01/2018",
+    "address": "BATU 11 . SG BULOH , 47000 SELANGOR .",
+    "total": "39.80"
+}

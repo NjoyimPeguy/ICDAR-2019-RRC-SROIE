@@ -1,5 +1,0 @@
-{
-    "address": "12,JALAN TAMPOI 7/4,KAWASAN PERINDUSTRIAN TAMPOI,81200 JOHOR BAHRU, JOHOR",
-    "date": "21 JUN 2018",
-    "total": "RM7.70"
-}

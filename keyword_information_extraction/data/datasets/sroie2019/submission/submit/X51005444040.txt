@@ -1,6 +1,0 @@
-{
-    "company": "BENS INDEPENDENT GROCER SDN. BHD",
-    "address": "LOT 6, JALAN BATAI, PLAZA BATAI, DAMANSARA HEIGHTS 50490, KUALA LUMPUR",
-    "date": "09/03/18",
-    "total": "133.70"
-}

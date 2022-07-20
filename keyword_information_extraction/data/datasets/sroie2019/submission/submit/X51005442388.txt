@@ -1,5 +1,0 @@
-{
-    "address": "15, JALAN PERMAS 10/7,PERMAS 81750 MASAI JOHOR",
-    "date": "20/03/18",
-    "total": "21.60"
-}

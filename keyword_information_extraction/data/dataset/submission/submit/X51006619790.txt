@@ -1,0 +1,6 @@
+{
+    "company": "YIN MA (M) SDN.BHD.",
+    "date": "19 JUL 2016",
+    "address": "NO.2, JALAN UDANG SIAR 2, TAMAN SRI SEGAMBUT, 52000 KUALA LUMPUR.",
+    "total": "14.50"
+}

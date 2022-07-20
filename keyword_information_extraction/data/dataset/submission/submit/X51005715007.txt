@@ -1,0 +1,6 @@
+{
+    "company": "KAISON FURNISHING SDN BHD",
+    "date": "25-03-18",
+    "address": "LOT NO. L3-012, LEVEL 3, MYTOWN SHOPPING CENTRE, NO. 6, JALAN COCHRANE, SEKSYEN 90 55100 KUALA LUMPUR.",
+    "total": "18.70"
+}

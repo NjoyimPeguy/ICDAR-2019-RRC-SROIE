@@ -1,0 +1,6 @@
+{
+    "company": "PELITA SAMUDRA PERTAMA (M) SDN BHD.",
+    "date": "03/06/2018",
+    "address": "NO.2-1,JALAN KAMARUDDIN ISA 31400 IPOH,PERAK DARUL RIDZUAN",
+    "total": "61.70"
+}

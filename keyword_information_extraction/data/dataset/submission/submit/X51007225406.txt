@@ -1,0 +1,6 @@
+{
+    "company": "UNIPHARM PHARMACY",
+    "date": "05/APR/2018",
+    "address": "B12, JALAN SS 15/4D, 47500 SUBANG JAYA,",
+    "total": "24.90"
+}

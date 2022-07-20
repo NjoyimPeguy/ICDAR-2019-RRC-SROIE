@@ -1,0 +1,6 @@
+{
+    "company": "DE JELITA STESEN MINYAK",
+    "date": "02/05/18",
+    "address": "JLN PERMAS 9/5, BDR PERMAS JAYA 81750, JOHOR BAHRU",
+    "total": "60.00"
+}

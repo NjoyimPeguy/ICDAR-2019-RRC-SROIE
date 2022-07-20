@@ -1,1 +1,1 @@
-from .charlm_cnn_highway_lstm import CharacterLevelCNNHighwayBiLSTM
+from .architecture import CharacterLevelCNNHighwayBiLSTM

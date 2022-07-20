@@ -1,0 +1,6 @@
+{
+    "company": "99 SPEED MART S/B",
+    "date": "20-11-17",
+    "address": "LOT P.T. 2811, JALAN ANGSA, TAMAN BERKELEY 41150 KLANG, SELANGOR 1413-SETIA ALAM 2",
+    "total": "169.80"
+}

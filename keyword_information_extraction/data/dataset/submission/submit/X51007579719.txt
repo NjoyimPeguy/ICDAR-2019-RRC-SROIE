@@ -1,0 +1,6 @@
+{
+    "company": "SOUP & PORRIDGE",
+    "date": "05-06-2018",
+    "address": "LOT S10NB & S12NB, RESTORAN JEJANTAS SG. BULOH, ARAH UTARA, PLUS BERHAD.",
+    "total": "20.70"
+}

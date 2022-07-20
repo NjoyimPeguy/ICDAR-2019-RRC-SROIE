@@ -1,6 +1,0 @@
-{
-    "company": "VIVOPAC MARKETING SDN BHD",
-    "address": "14 JALAN MANIS 4 TAMAN SEGAR 56100 KL",
-    "date": "17/01/2017",
-    "total": "46.65"
-}

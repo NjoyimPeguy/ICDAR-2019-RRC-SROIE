@@ -1,6 +1,0 @@
-{
-    "company": "BECON STATIONER ENTERPRISE SDN BHD",
-    "address": "DAMANSARA UTAMA OUTLET NO.41G,JLN SS21/60,DAMANSARA UTAMA,47400 PJ, SELANGOR.",
-    "date": "13-11-2017",
-    "total": "270.10"
-}

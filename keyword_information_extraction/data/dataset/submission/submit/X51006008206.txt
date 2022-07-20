@@ -1,0 +1,6 @@
+{
+    "company": "DEWINA HOST SDN BHD",
+    "date": "2018/03/27",
+    "address": "LOT SATMZ 23, MEZZANINE LEVEL",
+    "total": "RM63.90"
+}

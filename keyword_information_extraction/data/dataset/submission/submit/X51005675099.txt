@@ -1,0 +1,6 @@
+{
+    "company": "SUPER TERMINAL SDN BHD",
+    "date": "20/01/2018",
+    "address": "NO. 18 & 19, TAMAN CITY, JALAN KUCHING, 52100 KUALA LUMPUR",
+    "total": "132.50"
+}

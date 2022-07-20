@@ -1,0 +1,6 @@
+{
+    "company": "HOME'S HARMONY @ 1 UTAMA SHOPPING CENTRE MONSIEUR ( M ) SDN. BHD. ( 121889-W )",
+    "date": "01/05/2016",
+    "address": "PERSIARAN BANDAR UTAMA, 47800 PETALING JAYA. MALAYSIA",
+    "total": "8.80"
+}

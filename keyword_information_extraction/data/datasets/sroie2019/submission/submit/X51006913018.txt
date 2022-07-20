@@ -1,6 +1,0 @@
-{
-    "company": "AEON CO. (M) BHD",
-    "address": "3RD FLR, AEON TAMAN MALURI SC JLN JEJAKA, TAMAN MALURI CHERAS, 55100 KUALA LUMPUR",
-    "date": "11/05/2018",
-    "total": "458.55"
-}

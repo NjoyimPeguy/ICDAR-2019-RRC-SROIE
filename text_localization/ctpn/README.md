@@ -41,12 +41,12 @@ improving localization accuracy.
 The sequential proposals are naturally connected by a recurrent neural network, which is seamlessly incorporated into
 the convolutional network, resulting in an end-to-end trainable model. This allows the CTPN to explore rich context
 information of image, making it powerful to detect extremely ambiguous text. The CTPN works reliably on multi-scale and
-multi- language text without further post-processing, departing from previous bottom-up methods requiring multi-step
+multi-language text without further post-processing, departing from previous bottom-up methods requiring multi-step
 post-processing.
 
 ## Training <a name="training"/>
 
-Here are examples of running the [train.py](./train.py):
+Here are examples of running the [train.py](train.py):
 
 > Do not forget the commands to run on GPU below can be used with --use-amp argument if you want to use the automatic mixed precision.
 
@@ -107,7 +107,7 @@ You should normally get a similar output:
 ## Evaluation <a name="evaluation"/>
 
 As it was mentioned in the [demo section](#demo), you can do the evaluation on the 361 images (do not forget to download
-the weights). When it is finished, the provided [SROIE 2019 script](../../scripts/sroie2019/evaluation/script.py) will
+the weights). When it is finished, the provided [SROIE 2019 script](../../scripts/evaluation/task1/script.py) will
 be automatically executed to compute the recall, precision and hmean. As in the prediction events, all the evaluation
 events (logs, submit.zip and so on) will be saved under `text_localization/ctpn/outputs`.
 
@@ -149,44 +149,31 @@ You should normally get a similar output:
 ## Discussions <a name="discussions"/>
 
 <div align="center">
-  <img src="./figures/X51005715006.jpg" style="width: 25%; height: 35%" title="An example of the CTPN output" />
-  <img src="./figures/X00016469670.jpg" style="width: 25%; height: 25%" title="An example of the CTPN output" />
-  <img src="./figures/X51006334139.jpg" style="width: 25%; height: 25%" title="An example of the CTPN output" />
+  <img src="./figures/X00016469670.jpg" style="width: 25%; height: 35%" title="An example of the CTPN output" />
+  <img src="./figures/X51005361923.jpg" style="width: 25%; height: 25%" title="An example of the CTPN output" />
   <img src="./figures/X51005806718.jpg" style="width: 25%; height: 25%" title="An example of the CTPN output" />
-  <img src="./figures/X51006334927.jpg" style="width: 25%; height: 25%" title="An example of the CTPN output" />
-  <img src="./figures/X51005433543.jpg" style="width: 35%; height: 25%" title="An example of the CTPN output" />
-  <p>Examples of the CTPN output.</p>
+  <img src="./figures/X51006334139.jpg" style="width: 25%; height: 25%" title="An example of the CTPN output" />
+  <img src="./figures/X51006556810.jpg" style="width: 25%; height: 25%" title="An example of the CTPN output" />
+  <img src="./figures/X51007103597.jpg" style="width: 35%; height: 25%" title="An example of the CTPN output" />
+  <p>CTPN detection results on several challenging images. Green boxes are predictions and red boxes are the ground truths.</p>
 </div>
 
 &nbsp;
 
 As one can notice, this implementation of the CTPN is slightly different from the paper and here are the changes:
 
-1. The number of channels of the RPN layer (The one that slides through the last convolutional maps (`conv5`)of the
-   VGG16 model) is 256 instead of 512. This helps in setting large image size during training.
+1. The weight initialization for convolutional and fully-connected layers is based on this paper: https://arxiv.org/abs/1502.01852. 
+   That is to say the `Gaussian distribution` with zero-mean and standard deviation (std) of <img src="https://render.githubusercontent.com/render/math?math=\sqrt{2 / N}"> where `N` is the number of incoming connections. 
+   The `BiLSTM` weight initialization is based on this paper: https://arxiv.org/abs/1702.00071.
 
-2. Another layer was added to help to get better predictions. That layer is just a concatenation of the regression and
-   classification layers.
-
-3. The weight initialization is the `Kaiming initialization` or `He initialization` for all layers except for
-   the `BiLSTM`. The `BiLSTM` weight initialization is based on this paper: https://arxiv.org/abs/1702.00071.
-
-4. The actual CTPN anchor matching method was not enough to match all ground truth boxes (by the time I checked the
-   matched anchors during training, there were some images where some texts did not have any anchors matched). That is
-   why the threshold for positive anchors was decreased from 0.7 to 0.5 and from 0.5 to 0.3 for negative anchors in
-   order to increase the average number of matched anchors.
-
-5. The negative and positive ratio was changed from `1:1` to `3:1`. It was found that this leads to faster optimization
-   and a more stable training.
-
-6. The regression loss used in the CTPN is the smooth L1 loss. Altough it is a good loss, it is not free from outliers.
+2. The average number of matched anchors is about `1` when using the original CTPN anchor matching method. This is not actually good to recall texts (especially the small ones) with high scores. 
+   That is why the threshold for positive anchors was decreased from 0.7 to 0.5 and from 0.5 to 0.3 for negative anchors in order to increase the average number of matched anchors which is now `4`. 
+   
+3. The regression loss used in the CTPN is the smooth L1 loss. Although it is a good loss, it is not free from outliers.
    That is why the balanced L1 loss was used.
 
-7. Because of the imbalance between the number of positive and negative anchors, `λ1` from the regression loss is set to
-   4 to balance the loss terms.
-
-8. The data augmentation strategy described in the SSD paper: https://arxiv.org/abs/1512.02325 was used to generate many
-   more training samples as the SROIE dataset is very small (less than 1000 images and annotations).
+4. Because of the imbalance between the number of positive and negative anchors, `λ1` from the regression loss is set to
+   `2.0` to balance the loss terms.
 
 In order to improve my results, here are two potentials solutions I can think of:
 
@@ -197,5 +184,5 @@ In order to improve my results, here are two potentials solutions I can think of
 
 Here is a to-do list which should be complete subsequently.
 
-* [ ] Implementation of the multi-scale testing.
+* [ ] Implementation of the multiscale testing.
 * [ ] Implementation of the side-refinement approach.

@@ -1,0 +1,6 @@
+{
+    "company": "PLATINUM RACKING SDN BHD",
+    "date": "22/04/2018",
+    "address": "8B, JALAN LUMPUR,OFF JALAN PUTRA,05100 ALOR SETAR,KEDAH,",
+    "total": "23.00"
+}

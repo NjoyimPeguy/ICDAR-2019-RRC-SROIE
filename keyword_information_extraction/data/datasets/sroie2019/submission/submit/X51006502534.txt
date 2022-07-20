@@ -1,6 +1,0 @@
-{
-    "company": "FAMILYMART MAXINCOME RESOURCES SDN BHD",
-    "address": "NO 16A, JALAN ASTAKA U8/83, BUKIT JELUTONG, 40150 SHAH ALAM, SELANGOR, D.E.",
-    "date": "10/04/2018",
-    "total": "5.80"
-}

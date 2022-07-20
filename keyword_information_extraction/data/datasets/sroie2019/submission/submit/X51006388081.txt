@@ -1,6 +1,0 @@
-{
-    "company": "KING'S CONFECTIONERY S/B",
-    "address": "NO. 20-A1, JALAN SS6/3, KELANA JAYA, 47301 PETALING JAYA SELANGOR D.E.",
-    "date": "21/05/17",
-    "total": "27.50"
-}

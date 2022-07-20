@@ -1,0 +1,6 @@
+{
+    "company": "BUY SELL TRADE SDN. BHD.",
+    "date": "04/02/2017",
+    "address": "2 & 2A, JALAN KASUARINA 1/KS 7, BANDAR BOTANIK, 41200 KLANG, SELANGOR",
+    "total": "26.90"
+}

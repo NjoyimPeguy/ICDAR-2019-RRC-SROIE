@@ -1,0 +1,6 @@
+{
+    "company": "EXQUISITE GARDEN SDN BHD",
+    "date": "03 JUN 18",
+    "address": "LOT NO R134,GIANT HYPERMARKET PLENTONG NO3, JALAN MASAI LAMA 81750 MASAI. JAHOR BAHRU",
+    "total": "28.00"
+}

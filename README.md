@@ -1,7 +1,7 @@
 # ICDAR 2019 Robust Reading Challenge on Scanned Receipts OCR and Information Extraction
 
 > I submitted my results to the competition with the last model checkpoint.
-> Unfortunately, my results are not reproducibles accross different machines but were the same on my machine through multiple executions.
+> Unfortunately, my results are not reproducibles across different machines but were the same on my machine through multiple executions.
 > Indeed, after having seeded the training, the results obtained were slightly different on the borrowed NVIDIA GTX 1080.
 > This is not surprising because it is mentioned in the Pytorch documentation about [reproducibility](https://pytorch.org/docs/stable/notes/randomness.html).
 > That is why I gave up on seeding the training.
@@ -96,22 +96,26 @@ in `task1_2_test(361p)`. Indeed, the number of files in `task1_2_test(361p)` and
 same (360 and 361 respectively). The reason is that this filename `X51006619570.jpg` is missing, and it turns out that
 it was in `task3-test 347p) -`.
 
-Another mistake lies within the folder `0325updated.task2train(626p)` which is used for
-the [Task 3: Keyword Information Extraction](./keyword_information_extraction). Indeed, there are three files for which
-the date format is wrong and here are the corrections that were made:
+Another mistakes lie within the folder `0325updated.task2train(626p)` and `0325updated.task1train(626p)` which are used for
+the [Task 3: Keyword Information Extraction](./keyword_information_extraction). Indeed, there are files for which
+the date format, address and company are wrong and here are the corrections that were made:
 
-|   Filename   |          Correction           |
-| :----------: | :-----------------------------|
-| X51005447850 | Turn 20180304 into 04/03/2018 |
-| X51005715010 | Turn 25032018 into 25/03/2018 |
-| X51006466055 | Turn 20180428 into 28/04/2018 |
+|                          Directory                          |   Filename   | Correction                                                                         |
+|:-----------------------------------------------------------:|:------------:|:-----------------------------------------------------------------------------------|
+|                 0325updated.task2train(626p                 | X51005447850 | Change 20180304 into 04/03/2018                                                    |
+| 0325updated.task1train(626p) & 0325updated.task2train(626p) | X51005715010 | Change 25032018 into 25.03.2018                                                    |
+| 0325updated.task1train(626p) & 0325updated.task2train(626p) | X51006466055 | Change 20180428 into 2018-04-28                                                    |
+|                0325updated.task2train(626p)                 | X51008114284 | Remove one occurrence of 'KAWASAN PERINDUSTRIAN BALAKONG,' from the address        |
+|                0325updated.task2train(626p)                 | X00016469620 | Remove " (MR DIY TESCO TERBAU)" from the address                                   |
+|                0325updated.task2train(626p)                 | X00016469623 | Remove " (TESCO PUTRA NILAI)" from the address                                     |
+|                0325updated.task2train(626p)                 | X51006502531 | Change "FAMILYMART" into "MAXINCOME RESOURCES SDN BHD (383322-D)" from the company |
 
 #### Downloads <a name="dset-downloads"/>
 
 The **Original dataset** can be found [Google Drive](https://drive.google.com/open?id=1ShItNWXyiY1tFDM5W02bceHuJjyeeJl2)
 or [Baidu NetDisk](https://pan.baidu.com/s/1a57eKCSq8SV8Njz8-jO4Ww#list/path=%2FSROIE2019&parentPath=%2F).
 
-Taking into account to what was mentionned in [dataset mistakes](#dset-mistakes) above, you may obviously want to make
+Taking into account to what was mentioned in [dataset mistakes](#dset-mistakes) above, you may obviously want to make
 the changes by your own, but I have already made the corrections, and it can be downloaded via the bash
 script: [sroie2019.sh](scripts/datasets/sroie2019.sh) and here is how to run it:
 
@@ -129,7 +133,7 @@ script: [sroie2019.sh](scripts/datasets/sroie2019.sh) and here is how to run it:
 
   Do not forget to specify the new directory inside this [file](scripts/datasets/dataset_roots.py).
 
-For Windows users who do not have bash on their system, you may want to
+For Windows users who do not have `bash` on their system, you may want to
 install [git bash](https://git-scm.com/download/win). Once it is installed, you can set the entire `git bin` folder in
 the [environment variables](https://stackoverflow.com/questions/17312348/how-do-i-set-windows-environment-variables-permanently)
 .
@@ -140,17 +144,17 @@ Here are methods used for the competition. Inside each folder representing the t
 the proposed method and the training, demo and evaluation procedures as well.
 
 - **Task 1 - Text Localization**: Connectionist Text Proposal Network (CTPN).
-- **Task 3 - Keyword Information Extraction**: Character-Aware CNN + Highway + BiLSTM (Char LM).
+- **Task 3 - Keyword Information Extraction**: Character-Aware CNN + Highway + BiLSTM (CharLM).
 
 ## Results <a name="results"/>
 
 The results are listed as follows (Note that for the task 3, I manually fix each and every OCR mismatches for fair
 comparison results):
 
-|  Task  |   Recall  | Precision |  Hmean   | Evaluation Method  |     Model      |   Parameters   | Model Size | Weights |
-| :----: | :-------: | :-------: | :------: | :----------------: | :------------: | :------------: | :--------: | :--------------------------------------------------------------------------------------------------------------------------------- |
-| Task 1 |   97.16%  |   97.10%  |  97.13%  |      Deteval       |     CTPN       |   16,900,032   |  268.3 MB  | [Last checkpoint](https://github.com/BlackStar1313/ICDAR-2019-RRC-SROIE/releases/download/v1.0/CTPN_FINAL_CHECKPOINT.pth) |
-| task 3 |   96.18%  |   97.45%  |  96.81%  |         /          |     Char LM    |   4,740,590    |  75.9 MB   | [last checkpoint](https://github.com/BlackStar1313/ICDAR-2019-RRC-SROIE/releases/download/v1.0/CHARLM_CNN_HIGHWAY_LSTM_FINAL_CHECKPOINT.pth) |
+|  Task  | Recall | Precision | Hmean  | Evaluation Method | Model  | Parameters | Model Size | Weights                                                                                                                                      |
+|:------:|:------:|:---------:|:------:|:-----------------:|:------:|:----------:|:----------:|:---------------------------------------------------------------------------------------------------------------------------------------------|
+| Task 1 | 97.52% |  97.40%   | 97.46% |      Deteval      |  CTPN  | 18,450,332 |   280 MB   | [Last checkpoint](https://github.com/BlackStar1313/ICDAR-2019-RRC-SROIE/releases/download/v2.0/CTPN_FINAL_CHECKPOINT.pth)                    |
+| task 3 | 98.20% |  98.48%   | 98.34% |         /         | CharLM | 4,740,590  |  72.4 MB   | [last checkpoint](https://github.com/BlackStar1313/ICDAR-2019-RRC-SROIE/releases/download/v2.0/CHARLM_FINAL_CHECKPOINT.pth) |
 
 ## User guide <a name="user-guide"/>
 
@@ -165,6 +169,12 @@ Besides, all the experiments and results were performed on my personal gaming co
 - 10th Gen Intel(R) Core(TM) i9 10900K (10-Core, 20 MB Cache, 3.7GHz to 5.3GHz w/Thermal Velocity Boost)
 - NVIDIA® GeForce® RTX 2070 SUPER™, 8Go GDDR6
 - OS: Dual boot Windows/Ubuntu 20.04
+
+and DIVA GPU cluster:
+
+- 9th Gen Intel(R) Core(TM) i9 9900K (8-core, 16 MB cache)
+- NVIDIA® GeForce® GTX 1080
+- OS: Ubuntu 18.04
 
 ### Conda environment setup <a name="environment-setup"/>
 
@@ -187,10 +197,10 @@ this [documentation](https://docs.continuum.io/anaconda/install/).
 
    This will create a new conda environment named `SROIE2019` on your system, which will give you all the packages
    needed for this repo. If you do not own any NVIDIA GPUs (with CUDA capable-system), then you must remove
-   the `cudatoolkit` and `cudnn` lines in the [environment.yml](env/environment.yml) file. Otherwise, make sure your graphic card
-   supports the installed version of CUDA.
+   the `cudatoolkit` and `cudnn` lines in the [environment.yml](env/environment.yml) file. 
+   Otherwise, make sure your graphic card supports the installed version of CUDA.
 
-4. Activating the new environment
+3. Activating the new environment
 
    ```
    conda activate SROIE2019
@@ -204,7 +214,7 @@ this [documentation](https://docs.continuum.io/anaconda/install/).
 
    If you want to deactivate the environment, you can simply do: `conda deactivate`
 
-5. Verify that the new environment was installed correctly
+4. Verify that the new environment was installed correctly
 
    ```
    conda env list
@@ -222,7 +232,7 @@ the [manager](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/ma
 
 ### Visualizer
 
-To use vidsom, you must make sure the server is running before you run the training.
+To use `Vidsom`, you must make sure the server is running before you run the training.
 
 #### Starting the server with
 

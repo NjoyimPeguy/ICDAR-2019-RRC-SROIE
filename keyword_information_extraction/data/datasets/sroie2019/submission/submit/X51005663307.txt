@@ -1,6 +1,0 @@
-{
-    "company": "LA STATIONERY SDN BHD",
-    "address": "NO.8, JALAN 46/26, TAMAN SRI RAMPAI, 53300 KUALA LUMPUR.",
-    "date": "09/02/2018",
-    "total": "56.80"
-}

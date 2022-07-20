@@ -1,6 +1,0 @@
-{
-    "company": "B & BEST RESTAURANT",
-    "address": "NO.12,JALAN SS4C/5,PETALING JAYA SELANGOR DARUL EHSAN",
-    "date": "19/04/2017",
-    "total": "14.85"
-}

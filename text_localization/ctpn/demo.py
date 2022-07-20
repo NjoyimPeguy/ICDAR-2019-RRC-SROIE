@@ -1,48 +1,39 @@
 import os
 import sys
+
+sys.path.append(os.getcwd())
+
+import gc
 import cv2
 import time
 import copy
 import torch
-import argparse
 import numpy as np
 import os.path as osp
 
-sys.path.append(os.getcwd())
-
 from PIL import Image
-from vizer.draw import draw_boxes
+from options import TestArgs
+
+from functional.event_tracker import Logger
+from functional.utils.dataset import read_image, parse_annotations
+from functional.utils.box import remove_empty_boxes, draw_bboxes
+from functional.data.transformation.computer_vision import ToSobelGradient, ToMorphology, CropImage, ConvertColor
+
 from text_localization.ctpn.model import CTPN
 from text_localization.ctpn.configs import configs
-from text_localization.ctpn.utils.dset import read_image
-from text_localization.ctpn.utils.logger import create_logger
-from text_localization.ctpn.data.postprocessing import TextDetector, remove_empty_boxes
-from text_localization.ctpn.data.preprocessing.augmentation import BasicDataTransformation
-from text_localization.ctpn.data.preprocessing.transformations import ToSobelGradient, ToMorphology, \
-    CropImage, ConvertColor
+from text_localization.ctpn.data.postprocessing import TextDetector
+from text_localization.ctpn.data.augmentation import BasicDataTransformation
 
-parser = argparse.ArgumentParser(description="CTPN: prediction phase")
-
-parser.add_argument("--config-file", action="store", help="The path to the configs file.")
-parser.add_argument("--trained-model", action="store", help="The path to the trained model state dict file")
-parser.add_argument("--image-folder", default="./text_localization/demo/images", type=str,
-                    help="The path to the trained model state dict file")
-parser.add_argument("--output-folder", default="./text_localization/demo/results/ctpn", type=str,
-                    help="The directory to save prediction results")
+test_args = TestArgs(description="Text localization: prediction")
+parser = test_args.get_parser()
+parser.set_defaults(image_folder="./text_localization/demo/images",
+                    help="The path to a directory where there are images to use for predictions.")
+parser.set_defaults(output_folder="./text_localization/demo/results/",
+                    help="The path to a directory where prediction results will be saved.")
 parser.add_argument("--remove-extra-white", action="store_true",
-                    help="Enable or disable the need for removing the extra white space on the scanned receipts."
-                         "By default it is disable.")
-parser.add_argument("--use-cuda", action="store_true",
-                    help="enable/disable cuda during prediction. By default it is disable")
-parser.add_argument("--use-amp", action="store_true",
-                    help="Enable or disable the automatic mixed precision. By default it is disable."
-                         "For further info, check those following links:"
-                         "https://pytorch.org/docs/stable/amp.html"
-                         "https://pytorch.org/docs/stable/notes/amp_examples.html"
-                         "https://pytorch.org/tutorials/recipes/recipes/amp_recipe.html")
-parser.add_argument("--gpu-device", default=0, type=int, help="Specify the GPU ID to use. By default, it is the ID 0")
-
-args = parser.parse_args()
+                    help="Enable or disable the need to crop the extra white background. "
+                         "By default, there is not any removal of the white background.")
+args, _ = parser.parse_known_args()
 
 
 class Prediction:
@@ -50,27 +41,28 @@ class Prediction:
 
         possible_extension_image = ("jpg", "png", "jpeg", "JPG")
 
-        files = list(sorted(os.scandir(path=args.image_folder), key=lambda f: f.name))
-        self.images = [f for f in files if f.name.endswith(possible_extension_image)]
+        files = list(sorted(os.scandir(path=osp.normpath(args.image_folder)), key=lambda f: f.name))
+        self.images: list = [f for f in files if f.name.endswith(possible_extension_image)]
 
         if len(self.images) == 0:
             raise ValueError("There are no images for prediction!")
 
         # A boolean to check whether the user is able to use cuda or not.
-        use_cuda = torch.cuda.is_available() and args.use_cuda
+        self.use_cuda: bool = torch.cuda.is_available() and args.use_cuda
 
         # A boolean to check whether the user is able to use amp or not.
-        self.use_amp = args.use_amp and use_cuda
+        self.use_amp: bool = args.use_amp and use_cuda
 
         # The declaration and tensor type of the CPU/GPU device.
-        if not use_cuda:
-            self.device = torch.device("cpu")
+        if not self.use_cuda:
+            self.device: torch.device = torch.device("cpu")
             torch.set_default_tensor_type('torch.FloatTensor')
         else:
-            self.device = torch.device("cuda")
+            self.device: torch.device = torch.device("cuda")
             torch.cuda.set_device(args.gpu_device)
             torch.set_default_tensor_type("torch.cuda.FloatTensor")
 
+            # Enabling cuDNN.
             torch.backends.cudnn.enabled = True
 
         if not osp.exists(args.output_folder):
@@ -80,36 +72,50 @@ class Prediction:
         if not os.path.isdir(output_dir):
             os.makedirs(output_dir)
 
-        self.logger = create_logger(name="Prediction phase", output_dir=output_dir, log_filename="prediction-log")
+        self.logger: Logger = Logger(name="Prediction phase", output_dir=output_dir, log_filename="prediction-log")
 
-        # Initialisation and loading the model's weight
-        modelArgs = dict(configs.MODEL.ARGS)
-        self.model = CTPN(**modelArgs)
-        checkpoint = torch.load(args.trained_model, map_location=torch.device("cpu"))
-        self.model.load_state_dict(checkpoint["model_state_dict"])
+        self.logger.info("Loading the model's weights.")
+        model_args = dict(configs.MODEL.ARGS)
+        self.trained_model = CTPN(**model_args)
+        checkpoint = torch.load(args.model_checkpoint, map_location=torch.device("cpu"))
+        model_state_dict = checkpoint.get("model_state_dict")
+        if model_state_dict is None:
+            raise ValueError("Impossible to get the key '{0}' from the checkpoint!".format("model_state_dict"))
+        self.trained_model.load_state_dict(model_state_dict)
 
         # Putting the trained model into the right device
-        self.model = self.model.to(self.device)
+        self.trained_model: torch.nn.Module = self.trained_model.to(self.device, non_blocking=True)
 
-        self.text_detector = TextDetector(configs=configs)
+        self.text_detector: TextDetector = TextDetector(configs=configs)
 
-        self.basic_transform = BasicDataTransformation(configs)
+        self.basic_augmentation: BasicDataTransformation = BasicDataTransformation(configs=configs)
 
+        # A set of classes for removing extra white space.
         if args.remove_extra_white:
-            # A set of classes for removing extra white space.
-            self.cropImage = CropImage()
-            self.morphologyEx = ToMorphology()
-            self.grayColor = ConvertColor(current="RGB", transform="GRAY")
-            self.sobelGradient = ToSobelGradient(cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+            self.cropImage: CropImage = CropImage()
+            self.morphologyEx: ToMorphology = ToMorphology()
+            self.grayColor: ConvertColor = ConvertColor(current="RGB", transform="GRAY")
+            self.sobelGradient: ToSobelGradient = ToSobelGradient(cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
     @torch.no_grad()
     def run(self):
 
-        self.model = self.model.eval()
+        self.trained_model = self.trained_model.eval()
+
+        # Force the garbage collector to run.
+        gc.collect()
+
+        if self.use_cuda:
+            # Before starting the training, all the unoccupied cached memory are released.
+            torch.cuda.empty_cache()
+
+            # waits for all tasks in the GPU to complete.
+            torch.cuda.current_stream(self.device).synchronize()
 
         for image in self.images:
 
-            start = time.time()
+            # Starting time.
+            start_time = time.time()
 
             original_image_path = image.path
 
@@ -117,35 +123,39 @@ class Prediction:
 
             image = copy.deepcopy(original_image)
 
-            # Apply the the same crop logic as in the preprocessing step.
+            # Apply the same crop logic as in the preprocessing step.
             cropped_pixels_width = cropped_pixels_height = 0
             if args.remove_extra_white and image.shape[1] > 990:
                 gray_image = self.grayColor(image)[0]
                 threshed_image = self.sobelGradient(gray_image)
-                morpho_image = self.morphologyEx(threshed_image)
+                morpho_image = self.morphologyEx(threshed_image, erode_iterations=6, dilate_iterations=6)
                 image, cropped_pixels_width, cropped_pixels_height = self.cropImage(morpho_image, image)
 
             original_image_height, original_image_width = image.shape[:2]
 
-            image = self.basic_transform(image, None)[0]
+            image = self.basic_augmentation(image)[0]
 
             new_image_height, new_image_width = image.shape[1:]
 
             image = image.to(self.device)
 
-            image = image.unsqueeze(0)  # Shape: [1, channels, height, width]
+            image = image.unsqueeze(0)  # Shape: (1, C, H, W)
 
-            load_time = time.time() - start
+            if self.use_cuda:
+                # waits for all tasks in the GPU to complete
+                torch.cuda.current_stream(self.device).synchronize()
 
-            start = time.time()
+            load_time = time.time() - start_time
+
+            start_time = time.time()
 
             # Forward pass using AMP if it is set to True.
-            # autocast may be used by itself to wrap inference or evaluation forward passes.
+            # autocast may be used by itself to wrap inference or task1 forward passes.
             # GradScaler is not necessary.
             with torch.cuda.amp.autocast(enabled=self.use_amp):
-                predictions = self.model(image)
+                predictions = self.trained_model(image)
 
-            inference_time = time.time() - start
+            inference_time = time.time() - start_time
 
             # Detections
             detections = self.text_detector(predictions, image_size=(new_image_height, new_image_width))
@@ -176,16 +186,16 @@ class Prediction:
             ))
 
             # Drawing the bounding boxes on the original image.
-            drawn_image = draw_boxes(image=original_image, boxes=detected_bboxes)
+            drawn_image = draw_bboxes(image=original_image, bboxes=detected_bboxes)
 
             # Saving the drawn image.
             image_name, image_ext = os.path.splitext(os.path.basename(original_image_path))
             Image.fromarray(drawn_image).save(os.path.join(args.output_folder, image_name + image_ext))
 
-            # Writing the annotation .txt file
+            # Writing the annotation .txt path_to_file
             with open(os.path.join(args.output_folder, image_name + ".txt"), "w") as f:
-                for j, coords in enumerate(detected_bboxes):
-                    line = ",".join(str(round(coord)) for coord in coords)
+                for j, coordinates in enumerate(detected_bboxes):
+                    line = ",".join(str(round(coord)) for coord in coordinates)
                     line += ", {0}".format(detected_scores[j])
                     line += "\n"
                     f.write(line)
@@ -194,26 +204,23 @@ class Prediction:
 if __name__ == '__main__':
 
     # Guarding against bad arguments.
-
-    if args.trained_model is None:
+    if args.model_checkpoint is None:
         raise ValueError("The path to the trained model is not provided!")
-    elif not osp.isfile(args.trained_model):
+    elif not osp.isfile(args.model_checkpoint):
         raise ValueError("The path to the trained model is wrong!")
 
     gpu_devices = list(range(torch.cuda.device_count()))
     if len(gpu_devices) != 0 and args.gpu_device not in gpu_devices:
-        raise ValueError("Your GPU ID is out of the range! You may want to check with 'nvidia-smi'")
-    elif args.use_cuda:
-        if not torch.cuda.is_available():
-            raise ValueError("The argument --use-cuda is specified but it seems you cannot use CUDA!")
-    elif args.use_amp:
-        raise ValueError("The arguments --use-cuda, --use-amp and --gpu-device must be used together!")
+        raise ValueError("Your GPU ID is out of the range! "
+                         "You may want to check it with 'nvidia-smi' or "
+                         "'Task Manager' for Windows users.")
 
-    if args.config_file is not None:
-        if not os.path.isfile(args.config_file):
-            raise ValueError("The configs file is wrong!")
-        else:
-            configs.merge_from_file(args.config_file)
+    if args.use_cuda and not torch.cuda.is_available():
+        raise ValueError("The argument --use-cuda is specified but it seems you cannot use CUDA!")
+
+    if not args.use_cuda and args.use_amp:
+        raise ValueError("The arguments --use-cuda, --use-amp must be used together!")
+
     configs.freeze()
 
     Prediction().run()

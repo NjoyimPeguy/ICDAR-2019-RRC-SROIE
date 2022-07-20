@@ -1,0 +1,6 @@
+{
+    "company": "SECURE PARKING CORPORATION S/B",
+    "date": "23.03.18",
+    "address": "RIVERWALK VILLAGE BATU 3, JALAN IPOH 51200 KL.",
+    "total": "1.00"
+}

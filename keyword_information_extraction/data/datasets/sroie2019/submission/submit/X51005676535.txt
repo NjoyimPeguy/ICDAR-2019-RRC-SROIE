@@ -1,6 +1,0 @@
-{
-    "company": "SYARIKAT PERNIAGAAN GIN KEE",
-    "address": "NO 290, JALAN AIR PANAS, SETAPAK, 53200, KUALA LUMPUR",
-    "date": "30/12/2017",
-    "total": "89.04"
-}

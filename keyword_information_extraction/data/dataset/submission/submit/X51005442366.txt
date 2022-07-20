@@ -1,0 +1,6 @@
+{
+    "company": "TRIPLE SIX POINT ENTERPRISE 666",
+    "date": "22-03-2018",
+    "address": "NO 14& 16 JALAN PERMAS 4/3 BANDAR BARU PERMAS JAY",
+    "total": "22.60"
+}

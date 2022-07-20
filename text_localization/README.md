@@ -23,13 +23,13 @@ address partly the problem of one-to-many and many to one correspondence of dete
 This task is difficult since scanned receipts have a lot of variations and are sometimes of low quality.
 
 <div align="center">
-    <img src="../scripts/sroie2019/preprocessing/images/X51005361946.jpg" width="250"/>
-    <img src="../scripts/sroie2019/preprocessing/images/X51007846370.jpg" width="250"/>
+    <img src="./figures/X51005361946.jpg" width="250"/>
+    <img src="./figures/X51007846370.jpg" width="250"/>
 </div>
 
 ## Crop preprocessing steps <a name="crop-preprocessing-steps"/>
 
-Before running the training, the [crop preprocessing](../scripts/sroie2019/preprocessing/split_labels.py) (starts at
+Before running the training, the [crop preprocessing](../functional/data/preprocessing/split_labels.py) (starts at
 line 99) method is applied if it was not done the very first time. This method first convert the image to gray scale.
 Then gradient is obtained with the Sobel operator which will be used to do the Otsu's binarization. The outline of the
 scanned receipt area is decided by morphological transformations with the rectangle kernel.

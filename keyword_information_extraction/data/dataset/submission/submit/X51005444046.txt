@@ -1,0 +1,6 @@
+{
+    "company": "STAR GROCER SDN BHD",
+    "date": "25/03/18",
+    "address": "NO 4, DESA PANDAN, OFF KAMPONG PANDAN, 55100 KUALA LUMPUR",
+    "total": "66.15"
+}

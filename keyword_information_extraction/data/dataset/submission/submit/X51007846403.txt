@@ -1,0 +1,6 @@
+{
+    "company": "ROYALTEA",
+    "date": "02/06/2018",
+    "address": "NO.33,JALAN SELADANG TAMAN ABAD, 80250 JOHOR BAHRU, JOHOR ,MALAYSIA.",
+    "total": "13.10"
+}

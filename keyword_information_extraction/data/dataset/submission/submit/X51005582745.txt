@@ -1,0 +1,6 @@
+{
+    "company": "MODERN DEPOT SDN BHD",
+    "date": "04/12/2016",
+    "address": "NO.19, PT18685, JALAN JAMBU MELAKA 2, JINJANG SELATAN, KEPONG.",
+    "total": "150.00"
+}

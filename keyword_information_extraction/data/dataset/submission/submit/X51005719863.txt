@@ -1,0 +1,6 @@
+{
+    "company": "SEN LEE HEONG RESTAURANT",
+    "date": "12-01-2018",
+    "address": "G-0-1 ,M.AVENUE NO.1 ,JLN 1/38A, SEGAMBUT BAHAGIA,51200, K.LUMPUL",
+    "total": "77.40"
+}

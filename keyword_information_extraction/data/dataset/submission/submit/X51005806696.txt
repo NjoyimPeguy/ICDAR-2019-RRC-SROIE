@@ -1,0 +1,6 @@
+{
+    "company": "IMAGE PRINTEC (M) SDN BHD",
+    "date": "23/02/2018",
+    "address": "NO. 12A-G, JALAN WANGSA DELIMA 11, D'WANGSA WANGSA MAJU, 53300 KUALA LUMPUR.",
+    "total": "7.20"
+}

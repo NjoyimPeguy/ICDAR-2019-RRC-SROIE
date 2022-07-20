@@ -1,0 +1,6 @@
+{
+    "company": "SIN LIANHAP SDN BHD",
+    "date": "05/02/2018",
+    "address": "LOT 13, JALAN IPOH, KG BATU 30, ULU YAM LAMA 44300 BTG KALI, SELANGOR.",
+    "total": "7.30"
+}

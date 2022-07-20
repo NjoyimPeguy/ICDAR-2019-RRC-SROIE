@@ -1,0 +1,6 @@
+{
+    "company": "GLOBAL FOOD EMPIRE SDN BHD LEMON TREE RESTAURANT",
+    "date": "2018-05-01",
+    "address": "NO. 27, JALAN AUSTIN HEIGHT 8/4, TAMAN MOUNT AUSTIN, 81100 JOHOR BAHRU.",
+    "total": "38.35"
+}

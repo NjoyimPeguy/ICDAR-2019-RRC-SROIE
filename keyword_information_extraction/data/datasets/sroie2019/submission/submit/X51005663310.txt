@@ -1,6 +1,0 @@
-{
-    "company": "LIM SENG THO HARDWARE TRADING",
-    "address": "NO 7, SIMPANG OFF BATU VILLAGE, JALAN IPOH BATU 5, 51200 KUALA LUMPUR MALAYSIA",
-    "date": "09/02/2018",
-    "total": "8.40"
-}

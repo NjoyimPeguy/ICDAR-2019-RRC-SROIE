@@ -1,6 +1,0 @@
-{
-    "company": "KEDAI UBAT & RUNCIT HONG NING SDN. BHD.",
-    "address": "NO.8,JALAN LANG KUNING, KEPONG BARU, 52100 KUALA LUMPUR",
-    "date": "02/02/16",
-    "total": "676.00"
-}

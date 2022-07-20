@@ -1,5 +1,0 @@
-{
-    "address": "SRI RAMPAI",
-    "date": "22 MAR 18",
-    "total": "30.25"
-}

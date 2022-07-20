@@ -50,14 +50,14 @@ memory (LSTM) recurrent neural network language model (RNN-LM).
 
 <div align=center><img src="./figures/charlm_architecture.png" height="450" title="Model architecture"/></div>
 
-Unlike previous works that utilize subword information via morphemes, this model does not require morphological tagging
+Unlike previous works that utilize sub-word information via morphemes, this model does not require morphological tagging
 as a pre-processing step. And, unlike the recent line of work which combines input word embeddings with features from a
 character-level model, this model does not utilize word embeddings at all in the input layer. Given that most of the
 parameters in NLMs are from the word embeddings, the proposed model has significantly fewer parameters than previous
 NLMs, making it attractive for applications where model size may be an issue (e.g. cell phones).
 
 The original predictions are made at word-level, but in this repo, the prediction was made at `text line`-level. Another
-modification is the two LSTM layers that are bidirectional. The initialization of the weights are slightly differents as
+modification is the two LSTM layers that are bidirectional. The initialization of the weights are slightly different as
 well.
 
 ## Training <a name="training"/>
@@ -103,44 +103,75 @@ It is highly unfortunate to have so many OCR mismatched during the evaluation pr
 several OCR mismatches which leads to unfair results ). No matter what is the model used, the F1-score will not be the
 one expected. At least here are tables showing the different results based on the recall, precision and hmean.
 
-### Without fixing any OCR mismatches <a name="no-fixing-ocr-mismatches"/>
+### Phase I: Without fixing any OCR mismatches <a name="no-fixing-ocr-mismatches"/>
 
-The result below is obtained when I did not clean the company and the address in this file: [postprocessing.py](./data/postprocessing/sroie_postprocessing.py)
+The result below is obtained when I did not clean the company and the address in this file: [postprocessing.py](./data/postprocessing/entity_matching.py)
 
-|  Recall |  Precision  |  Hmean  |
-| :------:| :---------: | :-------|
-| 83.14 % |   83.38 %   | 83.26 % |
+| Recall  | Precision | Hmean   |
+|:-------:|:---------:|:--------|
+| 83.07 % |  83.85 %  | 83.46 % |
 
-### Partially fixing OCR mistmatches
+### Phase II: Partially fixing OCR mismatches
 
 From the previous file mentioned above, I simply cleaned the company and the address.
 
-|  Recall | Precision |  Hmean  |
-| :------:| :-------: | :-------|
-| 88.76 % |  89.08 %  | 88.92 % |
+| Recall  | Precision | Hmean   |
+|:-------:|:---------:|:--------|
+| 88.40 % |  89.30 %  | 88.85 % |
 
 One can notice this result is about 5% better than the [previous one](#no-fixing-ocr-mismatches). The reason is that,
 the company category has some unwanted strings such as `(862725 U)` which of course are not taken into account during
-the evaluation protocol. To remove those mistmatches, I simply used three different regex (start at line
-29: [postprocessing.py](./data/postprocessing/sroie_postprocessing.py)) to match those errors.
+the evaluation protocol. To remove those mismatches, I simply used three different regex (start at line
+29: [postprocessing.py](./data/postprocessing/entity_matching.py)) to match those errors.
 
 There are also some receipts in which the phone number is on the same line as the address (for instance, `X51007846310`)
 . As it is at the end of line, I simply found the substring that starts with the word `TEL` and deleted it till the end
-of the line. One may find this uncorrect, but it is unfortunate the F1-score will be lowered especially when the phone
+of the line. One may find this not right, but it is unfortunate the F1-score will be lowered especially when the phone
 number should normally be after the address.
 
-### Fixing each and every OCR mistmatch
+### Phase III: Filling the entities missed by the model
+
+Even after step 1 and 2, the CharLM still misses to predict all the
+`company` and `address` entities in each receipt. In order to fill those
+two missing and by observing the train set, simple based-rules are computed as follows:
+
+1. **Company based-rule**
+
+A simple observation allows us to suppose most of the time, the
+company lies in the first two lines of a given scanned receipt,
+and adding a constraint that it should not contain words such
+as ’TAX’, ’RECEIPT’ and ’INVOICE’, the company name can be extracted.
+
+2. **Total based-rule**
+
+The rule used for the `total` consists of extracting it if and only if it is preceded by words such as `AMOUNT` or `TOTAL`.
+
+Eventually, here is the improvement after using those two based-rules:
+
+| Recall  | Precision | Hmean   |
+|:-------:|:---------:|:--------|
+| 89.59 % |  89.62 %  | 89.59 % |
+
+
+### Phase IV: Removing empty entities
+
+After the first three phases, there are still empty entities, i.e., the ones with null values. 
+The reason why the precision and recall results shown above (in phase III) are not the same is the empty entities are simply removed from the predictions. 
+Indeed, removing undetected entities helps in increasing the precision while the recall stays the same.
+
+
+### Phase V: Fixing each and every OCR mismatch
 
 Even after fixing the company and the address, there are still OCR mismatches such as the `total` that is randomly
 prefixed by `RM` or the whitespace that is randomly set within address field during the evaluation.
 
 As the organisers of this competition do not answer to any e-mails, I compared this model with others for fair results.
 One can see all the thorough changes made in this csv
-file: [OCR mismatches fix](data/datasets/sroie2019/submission/fix_ocr_mismatches.csv)
+file: [OCR mismatches fix](data/dataset/submission/fix_ocr_mismatches.csv)
 
-|  Recall | Precision |  Hmean  |
-| :------:| :-------: | :-------|
-| 96.18 % |  97.45 %  | 96.81 % |
+| Recall  | Precision | Hmean   |
+|:-------:|:---------:|:--------|
+| 98.20 % |  98.48 %  | 98.34 % |
 
 
 ## TODO <a name="todo"/>

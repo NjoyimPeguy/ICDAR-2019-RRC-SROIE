@@ -1,0 +1,6 @@
+{
+    "company": "PINGHWAI TRADING SDN BHD",
+    "date": "22/08/2017",
+    "address": "NO.2, JALAN METRO PERDANA TIMUR 11. KEPONG ENTERPRENUERS PARK, OFF JALAN KEPONG. 52100 KUALA LUMPUR.",
+    "total": "393.00"
+}

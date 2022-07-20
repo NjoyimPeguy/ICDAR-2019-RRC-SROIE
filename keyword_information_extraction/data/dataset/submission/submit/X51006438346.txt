@@ -1,0 +1,6 @@
+{
+    "company": "HIGH FIVE ENTERPRISE",
+    "date": "05/04/18",
+    "address": "JALAN BIDARA, TAMAN BIDARA, SELAYANG 68100, BATU CAVES, SELANGOR",
+    "total": "95.48"
+}

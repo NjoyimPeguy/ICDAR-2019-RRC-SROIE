@@ -1,0 +1,6 @@
+{
+    "company": "SECURITY & OA TRADING",
+    "date": "7/6/2016",
+    "address": "LOT TC007 & 008, 3RD FLOOR, SG. WANG PLAZA",
+    "total": "399.00"
+}

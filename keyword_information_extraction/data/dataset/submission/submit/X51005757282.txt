@@ -1,0 +1,6 @@
+{
+    "company": "TSH POWER HARDWARE TRADING",
+    "date": "12/09/2017",
+    "address": "13-1, JALAN PJU 5/10, DATARAN SUNWAY, KOTA DAMANSARA, 47810, PETALING JAYA, SELANGOR",
+    "total": "24.50"
+}

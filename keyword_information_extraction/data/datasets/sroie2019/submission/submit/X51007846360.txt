@@ -1,6 +1,0 @@
-{
-    "company": "IKANO HANDEL SDN BHD",
-    "address": "IKEA TEBRAU NO.33, JALAN HARMONIUM TAMAN DESA TEBRAU 81100 JOHOR BAHRU",
-    "date": "09/06/18",
-    "total": "46.20"
-}

@@ -1,0 +1,6 @@
+{
+    "company": "SATU KAMPUNG ENTERPRISE SDN BHD",
+    "date": "13/01/2018",
+    "address": "NO.42, PASAR BORONG SELANGOR. JALAN PUTRA PERMAI, 43300 SERI KEMBANGAN. SELANGOR.",
+    "total": "20.00"
+}
